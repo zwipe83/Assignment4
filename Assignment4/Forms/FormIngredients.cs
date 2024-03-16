@@ -19,9 +19,25 @@ namespace Assignment4.Forms
 {
     public partial class FormIngredients : Form
     {
-        public FormIngredients()
+        public FormIngredients(string recipe)
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Init GUI
+        /// </summary>
+        public void InitializeGUI()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Update GUI
+        /// </summary>
+        private void UpdateGUI()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

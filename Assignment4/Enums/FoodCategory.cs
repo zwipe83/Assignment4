@@ -13,7 +13,18 @@ using System.Threading.Tasks;
 
 namespace Assignment4.Forms
 {
-    internal class FoodCategory
+    internal enum FoodCategory
     {
+        Meats,
+        Pasta,
+        Pizza,
+        Fish,
+        Seafood,
+        Soups,
+        Stew,
+        Vegan,
+        Vegetarian,
+        Vegetarian_Dairy_Egg,
+        Other
     }
 }

@@ -20,9 +20,36 @@ namespace Assignment4
 {
     public partial class FormMain : Form
     {
+        private const int maxNumOfElements = 0;
+        private int maxNumOfIngredients;
+
         public FormMain()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Init GUI
+        /// </summary>
+        public void InitializeGUI()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Update GUI
+        /// </summary>
+        private void UpdateGUI()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Clear selection
+        /// </summary>
+        private void ClearSelection()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
