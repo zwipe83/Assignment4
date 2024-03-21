@@ -16,7 +16,7 @@ namespace Assignment4
         public App()
         {
             formMain.Show();
-            mainWindow.Show();
+            //mainWindow.Show(); //Maybe implement wpf
         }
     }
 }

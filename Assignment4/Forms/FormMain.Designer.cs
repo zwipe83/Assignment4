@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             grpAddRecipe = new GroupBox();
-            lblNameRecipe = new Label();
-            textBox1 = new TextBox();
-            lblCategory = new Label();
-            cmbFoodCategory = new ComboBox();
-            btnAddIngredient = new Button();
+            txtDescription = new TextBox();
             btnAddRecipe = new Button();
+            btnAddIngredient = new Button();
+            cmbFoodCategory = new ComboBox();
+            lblCategory = new Label();
+            txtNameRecipe = new TextBox();
+            lblNameRecipe = new Label();
             lstRecipe = new ListBox();
             btnEditStart = new Button();
             btnEditFinish = new Button();
@@ -44,7 +45,6 @@
             lblListRecipe = new Label();
             lblListCategory = new Label();
             lblListNumIngredients = new Label();
-            txtDescription = new TextBox();
             grpAddRecipe.SuspendLayout();
             SuspendLayout();
             // 
@@ -55,7 +55,7 @@
             grpAddRecipe.Controls.Add(btnAddIngredient);
             grpAddRecipe.Controls.Add(cmbFoodCategory);
             grpAddRecipe.Controls.Add(lblCategory);
-            grpAddRecipe.Controls.Add(textBox1);
+            grpAddRecipe.Controls.Add(txtNameRecipe);
             grpAddRecipe.Controls.Add(lblNameRecipe);
             grpAddRecipe.Location = new Point(12, 12);
             grpAddRecipe.Name = "grpAddRecipe";
@@ -64,21 +64,42 @@
             grpAddRecipe.TabStop = false;
             grpAddRecipe.Text = "Add new recipe";
             // 
-            // lblNameRecipe
+            // txtDescription
             // 
-            lblNameRecipe.AutoSize = true;
-            lblNameRecipe.Location = new Point(6, 32);
-            lblNameRecipe.Name = "lblNameRecipe";
-            lblNameRecipe.Size = new Size(88, 15);
-            lblNameRecipe.TabIndex = 0;
-            lblNameRecipe.Text = "Name of recipe";
+            txtDescription.Location = new Point(6, 91);
+            txtDescription.Multiline = true;
+            txtDescription.Name = "txtDescription";
+            txtDescription.Size = new Size(353, 300);
+            txtDescription.TabIndex = 7;
             // 
-            // textBox1
+            // btnAddRecipe
             // 
-            textBox1.Location = new Point(120, 29);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(239, 23);
-            textBox1.TabIndex = 1;
+            btnAddRecipe.Location = new Point(6, 397);
+            btnAddRecipe.Name = "btnAddRecipe";
+            btnAddRecipe.Size = new Size(353, 23);
+            btnAddRecipe.TabIndex = 6;
+            btnAddRecipe.Text = "Add Recipe";
+            btnAddRecipe.UseVisualStyleBackColor = true;
+            btnAddRecipe.Click += btnAddRecipe_Click;
+            // 
+            // btnAddIngredient
+            // 
+            btnAddIngredient.Location = new Point(205, 62);
+            btnAddIngredient.Name = "btnAddIngredient";
+            btnAddIngredient.Size = new Size(154, 23);
+            btnAddIngredient.TabIndex = 4;
+            btnAddIngredient.Text = "Add Ingredients";
+            btnAddIngredient.UseVisualStyleBackColor = true;
+            btnAddIngredient.Click += btnAddIngredient_Click;
+            // 
+            // cmbFoodCategory
+            // 
+            cmbFoodCategory.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbFoodCategory.FormattingEnabled = true;
+            cmbFoodCategory.Location = new Point(65, 62);
+            cmbFoodCategory.Name = "cmbFoodCategory";
+            cmbFoodCategory.Size = new Size(134, 23);
+            cmbFoodCategory.TabIndex = 3;
             // 
             // lblCategory
             // 
@@ -89,31 +110,21 @@
             lblCategory.TabIndex = 2;
             lblCategory.Text = "Category";
             // 
-            // cmbFoodCategory
+            // txtNameRecipe
             // 
-            cmbFoodCategory.FormattingEnabled = true;
-            cmbFoodCategory.Location = new Point(65, 62);
-            cmbFoodCategory.Name = "cmbFoodCategory";
-            cmbFoodCategory.Size = new Size(134, 23);
-            cmbFoodCategory.TabIndex = 3;
+            txtNameRecipe.Location = new Point(120, 29);
+            txtNameRecipe.Name = "txtNameRecipe";
+            txtNameRecipe.Size = new Size(239, 23);
+            txtNameRecipe.TabIndex = 1;
             // 
-            // btnAddIngredient
+            // lblNameRecipe
             // 
-            btnAddIngredient.Location = new Point(205, 62);
-            btnAddIngredient.Name = "btnAddIngredient";
-            btnAddIngredient.Size = new Size(154, 23);
-            btnAddIngredient.TabIndex = 4;
-            btnAddIngredient.Text = "Add Ingredients";
-            btnAddIngredient.UseVisualStyleBackColor = true;
-            // 
-            // btnAddRecipe
-            // 
-            btnAddRecipe.Location = new Point(6, 397);
-            btnAddRecipe.Name = "btnAddRecipe";
-            btnAddRecipe.Size = new Size(353, 23);
-            btnAddRecipe.TabIndex = 6;
-            btnAddRecipe.Text = "Add Recipe";
-            btnAddRecipe.UseVisualStyleBackColor = true;
+            lblNameRecipe.AutoSize = true;
+            lblNameRecipe.Location = new Point(6, 32);
+            lblNameRecipe.Name = "lblNameRecipe";
+            lblNameRecipe.Size = new Size(88, 15);
+            lblNameRecipe.TabIndex = 0;
+            lblNameRecipe.Text = "Name of recipe";
             // 
             // lstRecipe
             // 
@@ -196,14 +207,6 @@
             lblListNumIngredients.Text = "Number of ingredients";
             lblListNumIngredients.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // txtDescription
-            // 
-            txtDescription.Location = new Point(6, 91);
-            txtDescription.Multiline = true;
-            txtDescription.Name = "txtDescription";
-            txtDescription.Size = new Size(353, 300);
-            txtDescription.TabIndex = 7;
-            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -233,7 +236,7 @@
         private Button btnAddIngredient;
         private ComboBox cmbFoodCategory;
         private Label lblCategory;
-        private TextBox textBox1;
+        private TextBox txtNameRecipe;
         private Label lblNameRecipe;
         private Button btnAddRecipe;
         private ListBox lstRecipe;

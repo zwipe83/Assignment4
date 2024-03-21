@@ -6,6 +6,7 @@
 /// </summary>
 /// 
 
+using Assignment4.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,12 +21,16 @@ namespace Assignment4
 {
     public partial class FormMain : Form
     {
-        private const int maxNumOfElements = 0;
-        private int maxNumOfIngredients;
+        private const int maxNumOfElements = 100;
+        private const int maxNumOfIngredients = 20;
+        private RecipeManager recipeManager = new RecipeManager(maxNumOfElements);
+        private Recipe currRecipe;
 
         public FormMain()
         {
             InitializeComponent();
+            InitializeGUI();
+            currRecipe = new Recipe(maxNumOfIngredients);
         }
 
         /// <summary>
@@ -33,7 +38,8 @@ namespace Assignment4
         /// </summary>
         public void InitializeGUI()
         {
-            throw new System.NotImplementedException();
+            cmbFoodCategory.Items.Clear();
+            cmbFoodCategory.DataSource = Enum.GetValues(typeof(FoodCategory));
         }
 
         /// <summary>
@@ -50,6 +56,23 @@ namespace Assignment4
         private void ClearSelection()
         {
             throw new System.NotImplementedException();
+        }
+
+        private void btnAddIngredient_Click(object sender, EventArgs e)
+        {
+            Recipe recipeCopy = new Recipe(currRecipe);
+            FormIngredients fi = new FormIngredients(recipeCopy, currRecipe);
+            fi.Show();
+        }
+
+        private void btnAddRecipe_Click(object sender, EventArgs e)
+        {
+            recipeManager.Add(txtNameRecipe.Text, (FoodCategory)cmbFoodCategory.SelectedItem, currRecipe.Ingredients);
+
+            lstRecipe.Items.Clear();
+            lstRecipe.Items.Add(recipeManager.RecipeListToString());
+
+            currRecipe = new Recipe(maxNumOfIngredients);
         }
     }
 }

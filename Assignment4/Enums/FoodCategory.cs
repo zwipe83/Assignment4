@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Assignment4.Forms
 {
-    internal enum FoodCategory
+    public enum FoodCategory
     {
         Meats,
         Pasta,

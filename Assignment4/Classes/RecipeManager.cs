@@ -5,6 +5,7 @@
 /// </summary>
 /// 
 
+using Assignment4.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +21,9 @@ namespace Assignment4.Forms
         /// <summary>
         /// Constructor
         /// </summary>
-        public RecipeManager()
+        public RecipeManager(int maxNumOfElements)
         {
-            throw new System.NotImplementedException();
+            recipeList = new Recipe[maxNumOfElements];
         }
 
         /// <summary>
@@ -30,7 +31,10 @@ namespace Assignment4.Forms
         /// </summary>
         public bool Add(Recipe recipe)
         {
-            throw new System.NotImplementedException();
+            int index = FindVacantPosition();
+            recipeList[index] = recipe;
+
+            return true;
         }
 
         /// <summary>
@@ -38,7 +42,8 @@ namespace Assignment4.Forms
         /// </summary>
         public bool Add(string name, FoodCategory category, string[] ingredients)
         {
-            throw new System.NotImplementedException();
+            Add(new Recipe(name, category, ingredients));
+            return true;
         }
 
         /// <summary>
@@ -70,7 +75,17 @@ namespace Assignment4.Forms
         /// </summary>
         public int FindVacantPosition()
         {
-            throw new System.NotImplementedException();
+            int index = -1;
+
+            for (int i = 0; i < recipeList.Length; i++)
+            {
+                if (recipeList[i] == null)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            return index;
         }
 
         /// <summary>
@@ -97,12 +112,35 @@ namespace Assignment4.Forms
             throw new System.NotImplementedException();
         }
 
+        private int NumOfElements()
+        {
+            int count = 0;
+
+            for (int i = 0; i < recipeList.Length; i++)
+            {
+                if (recipeList[i] != null)
+                    count++;
+            }
+            return count;
+        }
+
         /// <summary>
         /// Recipe list to string
         /// </summary>
-        public string[] RecipeListToString()
+        public string RecipeListToString()
         {
-            throw new System.NotImplementedException();
+            int numOfElements = NumOfElements();
+            string infoString = String.Empty;
+
+            for (int i = 0, j = 0; i < recipeList.Length; i++)
+            {
+                if (recipeList[i] != null)
+                {
+                    infoString += recipeList[i].ToString() + "\n";
+                    j++;
+                }
+            }
+            return infoString;
         }
     }
 }

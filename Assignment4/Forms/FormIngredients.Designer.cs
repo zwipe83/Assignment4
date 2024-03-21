@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             grpIngredient = new GroupBox();
+            lstIngredients = new ListBox();
+            btnDelete = new Button();
+            btnEdit = new Button();
+            btnAdd = new Button();
+            txtNameIngredient = new TextBox();
             btnOK = new Button();
             btnCancel = new Button();
             lblNumIngredients = new Label();
             lblCurrNumber = new Label();
-            txtNameIngredient = new TextBox();
-            btnAdd = new Button();
-            btnEdit = new Button();
-            btnDelete = new Button();
-            lstIngredients = new ListBox();
             grpIngredient.SuspendLayout();
             SuspendLayout();
             // 
@@ -55,6 +55,50 @@
             grpIngredient.TabStop = false;
             grpIngredient.Text = "Ingredient";
             // 
+            // lstIngredients
+            // 
+            lstIngredients.FormattingEnabled = true;
+            lstIngredients.ItemHeight = 15;
+            lstIngredients.Location = new Point(6, 64);
+            lstIngredients.Name = "lstIngredients";
+            lstIngredients.Size = new Size(391, 274);
+            lstIngredients.TabIndex = 5;
+            // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(412, 111);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(75, 23);
+            btnDelete.TabIndex = 4;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = true;
+            // 
+            // btnEdit
+            // 
+            btnEdit.Location = new Point(412, 64);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(75, 23);
+            btnEdit.TabIndex = 3;
+            btnEdit.Text = "Edit";
+            btnEdit.UseVisualStyleBackColor = true;
+            // 
+            // btnAdd
+            // 
+            btnAdd.Location = new Point(412, 22);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(75, 23);
+            btnAdd.TabIndex = 2;
+            btnAdd.Text = "Add";
+            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
+            // 
+            // txtNameIngredient
+            // 
+            txtNameIngredient.Location = new Point(6, 22);
+            txtNameIngredient.Name = "txtNameIngredient";
+            txtNameIngredient.Size = new Size(391, 23);
+            txtNameIngredient.TabIndex = 0;
+            // 
             // btnOK
             // 
             btnOK.Location = new Point(150, 418);
@@ -63,6 +107,7 @@
             btnOK.TabIndex = 1;
             btnOK.Text = "OK";
             btnOK.UseVisualStyleBackColor = true;
+            btnOK.Click += btnOK_Click;
             // 
             // btnCancel
             // 
@@ -72,6 +117,7 @@
             btnCancel.TabIndex = 2;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // lblNumIngredients
             // 
@@ -90,49 +136,6 @@
             lblCurrNumber.Size = new Size(25, 15);
             lblCurrNumber.TabIndex = 4;
             lblCurrNumber.Text = "000";
-            // 
-            // txtNameIngredient
-            // 
-            txtNameIngredient.Location = new Point(6, 22);
-            txtNameIngredient.Name = "txtNameIngredient";
-            txtNameIngredient.Size = new Size(391, 23);
-            txtNameIngredient.TabIndex = 0;
-            // 
-            // btnAdd
-            // 
-            btnAdd.Location = new Point(412, 22);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(75, 23);
-            btnAdd.TabIndex = 2;
-            btnAdd.Text = "Add";
-            btnAdd.UseVisualStyleBackColor = true;
-            // 
-            // btnEdit
-            // 
-            btnEdit.Location = new Point(412, 64);
-            btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(75, 23);
-            btnEdit.TabIndex = 3;
-            btnEdit.Text = "Edit";
-            btnEdit.UseVisualStyleBackColor = true;
-            // 
-            // btnDelete
-            // 
-            btnDelete.Location = new Point(412, 111);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(75, 23);
-            btnDelete.TabIndex = 4;
-            btnDelete.Text = "Delete";
-            btnDelete.UseVisualStyleBackColor = true;
-            // 
-            // lstIngredients
-            // 
-            lstIngredients.FormattingEnabled = true;
-            lstIngredients.ItemHeight = 15;
-            lstIngredients.Location = new Point(6, 64);
-            lstIngredients.Name = "lstIngredients";
-            lstIngredients.Size = new Size(391, 274);
-            lstIngredients.TabIndex = 5;
             // 
             // FormIngredients
             // 
