@@ -14,11 +14,11 @@ using System.Windows.Documents;
 
 namespace Assignment4.Forms
 {
-    public class Recipe
+    public class Recipe : IDisposable
     {
         private FoodCategory category;
         private string? description;
-        private string[] ingredients;
+        private string[]? ingredients;
         private string? name;
 
         public Recipe(int maxNumOfIngredients)
@@ -153,6 +153,11 @@ namespace Assignment4.Forms
         public override string ToString()
         {
             return Name;
+        }
+
+        public void Dispose()
+        { 
+            //throw new System.NotImplementedException();
         }
     }
 }
