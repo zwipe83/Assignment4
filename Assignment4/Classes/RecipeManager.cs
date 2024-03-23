@@ -49,7 +49,7 @@ namespace Assignment4.Forms
         /// <summary>
         /// Change element
         /// </summary>
-        public void ChangeElement(int index, Recipe recipe)
+        public void ChangeElementAtIndex(int index, Recipe recipe)
         {
             throw new System.NotImplementedException();
         }
