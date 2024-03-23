@@ -26,6 +26,14 @@ namespace Assignment4
         private RecipeManager recipeManager = new RecipeManager(maxNumOfElements);
         private Recipe currRecipe;
 
+        public static int MaxNumOfIngredients
+        {
+            get
+            {
+                return maxNumOfIngredients;
+            }
+        }
+
         public FormMain()
         {
             InitializeComponent();
@@ -60,8 +68,7 @@ namespace Assignment4
 
         private void btnAddIngredient_Click(object sender, EventArgs e)
         {
-            Recipe recipeCopy = new Recipe(currRecipe);
-            FormIngredients fi = new FormIngredients(recipeCopy, currRecipe);
+            FormIngredients fi = new FormIngredients(currRecipe);
             fi.Show();
         }
 
