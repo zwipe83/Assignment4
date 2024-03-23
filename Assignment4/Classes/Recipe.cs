@@ -33,11 +33,12 @@ namespace Assignment4.Forms
             ingredients = objToCopyFrom.ingredients;
             name = objToCopyFrom.name;
         }
-        public Recipe(string name, FoodCategory category, string[] ingredients)
+        public Recipe(string name, FoodCategory category, string[] ingredients, string description)
         {
             this.name = name;
             this.category = category;
             this.ingredients = ingredients;
+            this.description = description;
         }
 
         public FoodCategory Category

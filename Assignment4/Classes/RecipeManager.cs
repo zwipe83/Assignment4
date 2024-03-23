@@ -40,9 +40,9 @@ namespace Assignment4.Forms
         /// <summary>
         /// Add recipe
         /// </summary>
-        public bool Add(string name, FoodCategory category, string[] ingredients)
+        public bool Add(string name, FoodCategory category, string[] ingredients, string description)
         {
-            Add(new Recipe(name, category, ingredients));
+            Add(new Recipe(name, category, ingredients, description));
             return true;
         }
 
@@ -93,7 +93,14 @@ namespace Assignment4.Forms
         /// </summary>
         public int GetCurrentNumberOfRecipes()
         {
-            throw new System.NotImplementedException();
+            int count = 0;
+
+            for (int i = 0; i < recipeList.Length; i++)
+            {
+                if (recipeList[i] != null)
+                    count++;
+            }
+            return count;
         }
 
         /// <summary>
@@ -112,16 +119,19 @@ namespace Assignment4.Forms
             throw new System.NotImplementedException();
         }
 
-        private int NumOfElements()
+        public int GetNumOfIngredients(Recipe recipe)
         {
-            int count = 0;
+            int ingredients = 0;
 
-            for (int i = 0; i < recipeList.Length; i++)
+            foreach (var ingredient in recipe.Ingredients)
             {
-                if (recipeList[i] != null)
-                    count++;
+                if (ingredient != null)
+                {
+                    ingredients++;
+                }
             }
-            return count;
+
+            return ingredients;
         }
 
         /// <summary>
@@ -129,7 +139,6 @@ namespace Assignment4.Forms
         /// </summary>
         public string RecipeListToString()
         {
-            int numOfElements = NumOfElements();
             string infoString = String.Empty;
 
             for (int i = 0, j = 0; i < recipeList.Length; i++)
@@ -141,6 +150,20 @@ namespace Assignment4.Forms
                 }
             }
             return infoString;
+        }
+
+        /// <summary>
+        /// Recipe list to string
+        /// </summary>
+        public void RecipeListToListBox(ListBox listbox)
+        {
+            foreach (var recipe in recipeList)
+            {
+                if (recipe != null)
+                {
+                    listbox.Items.Add($"{recipe.Name}\t\t\t{recipe.Category}\t\t\t{GetNumOfIngredients(recipe)}");
+                }
+            }
         }
     }
 }

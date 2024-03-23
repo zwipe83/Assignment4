@@ -41,6 +41,8 @@ namespace Assignment4.Forms
         /// </summary>
         public void InitializeGUI()
         {
+            btnAdd.Enabled = false;
+            //TODO: Add Enabled/Disabled for Edit and Delete also
             AddIngredients(CurrRecipe);
             UpdateGUI();
         }
@@ -83,7 +85,7 @@ namespace Assignment4.Forms
             if (lstIngredients.Enabled)
             {
                 lstIngredients.Items.Add(txtNameIngredient.Text);
-            } 
+            }
             else
             {
                 lstIngredients.Items[IngredientIndex] = txtNameIngredient.Text;
@@ -103,9 +105,9 @@ namespace Assignment4.Forms
 
             foreach (var ingredient in lstIngredients.Items)
             {
-                if(ingredient != null)
+                if (ingredient != null)
                 {
-                    recipe.AddIngredient(ingredient?.ToString(),out lastIndex);
+                    recipe.AddIngredient(ingredient?.ToString(), out lastIndex);
                 }
             }
 
@@ -136,5 +138,17 @@ namespace Assignment4.Forms
             txtNameIngredient.Text = lstIngredients?.SelectedItem?.ToString();
         }
         #endregion
+
+        private void txtNameIngredient_TextChanged(object sender, EventArgs e)
+        {
+            if(txtNameIngredient.Text.Length > 0)
+            {
+                btnAdd.Enabled = true;
+            }
+            else
+            {
+                btnAdd.Enabled = false;
+            }
+        }
     }
 }

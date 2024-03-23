@@ -74,12 +74,21 @@ namespace Assignment4
 
         private void btnAddRecipe_Click(object sender, EventArgs e)
         {
-            recipeManager.Add(txtNameRecipe.Text, (FoodCategory)cmbFoodCategory.SelectedItem, currRecipe.Ingredients);
+            recipeManager.Add(txtNameRecipe.Text, (FoodCategory)cmbFoodCategory.SelectedItem, currRecipe.Ingredients, currRecipe.Description);
 
             lstRecipe.Items.Clear();
-            lstRecipe.Items.Add(recipeManager.RecipeListToString());
+            recipeManager.RecipeListToListBox(lstRecipe);
+
+            txtDescription.Text = String.Empty;
+            txtNameRecipe.Text = String.Empty;
+            cmbFoodCategory.SelectedIndex = 0;
 
             currRecipe = new Recipe(maxNumOfIngredients);
+        }
+
+        private void txtDescription_TextChanged(object sender, EventArgs e)
+        {
+            currRecipe.Description = txtDescription.Text;
         }
     }
 }

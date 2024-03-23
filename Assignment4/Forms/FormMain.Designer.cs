@@ -71,6 +71,7 @@
             txtDescription.Name = "txtDescription";
             txtDescription.Size = new Size(353, 300);
             txtDescription.TabIndex = 7;
+            txtDescription.TextChanged += txtDescription_TextChanged;
             // 
             // btnAddRecipe
             // 

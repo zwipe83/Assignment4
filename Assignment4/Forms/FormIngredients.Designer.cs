@@ -100,6 +100,7 @@
             txtNameIngredient.Name = "txtNameIngredient";
             txtNameIngredient.Size = new Size(391, 23);
             txtNameIngredient.TabIndex = 0;
+            txtNameIngredient.TextChanged += txtNameIngredient_TextChanged;
             // 
             // btnOK
             // 
