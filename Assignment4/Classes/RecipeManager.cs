@@ -5,19 +5,14 @@
 /// </summary>
 /// 
 
-using Assignment4.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Assignment4.Forms
 {
     internal class RecipeManager
     {
+        #region Fields
         private Recipe[] recipeList;
-
+        #endregion
+        #region Constructors
         /// <summary>
         /// Constructor
         /// </summary>
@@ -25,7 +20,8 @@ namespace Assignment4.Forms
         {
             recipeList = new Recipe[maxNumOfElements];
         }
-
+        #endregion
+        #region Methods
         /// <summary>
         /// Add recipe
         /// </summary>
@@ -51,7 +47,7 @@ namespace Assignment4.Forms
         /// </summary>
         public void ChangeElementAtIndex(int index, Recipe recipe)
         {
-            throw new System.NotImplementedException();
+            recipeList[index] = recipe;
         }
 
         /// <summary>
@@ -67,7 +63,7 @@ namespace Assignment4.Forms
         /// </summary>
         public void DeleteElement(int index)
         {
-            throw new System.NotImplementedException();
+            recipeList[index] = null;
         }
 
         /// <summary>
@@ -106,9 +102,13 @@ namespace Assignment4.Forms
         /// <summary>
         /// Get recipe at
         /// </summary>
-        public Recipe GetRecipeAt(int index)
+        public Recipe? GetRecipeAt(int index)
         {
-            throw new System.NotImplementedException();
+            if (index >= 0 && index < recipeList.Length - 1)
+            {
+                return recipeList[index];
+            }
+            return null;
         }
 
         /// <summary>
@@ -165,5 +165,6 @@ namespace Assignment4.Forms
                 }
             }
         }
+        #endregion
     }
 }

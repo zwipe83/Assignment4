@@ -7,25 +7,18 @@
 /// 
 
 using Assignment4.Forms;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Assignment4
 {
     public partial class FormMain : Form
     {
+        #region Fields
         private const int maxNumOfElements = 100;
         private const int maxNumOfIngredients = 20;
         private RecipeManager recipeManager = new RecipeManager(maxNumOfElements);
         private Recipe currRecipe;
-
+        #endregion
+        #region Properties
         public static int MaxNumOfIngredients
         {
             get
@@ -33,14 +26,16 @@ namespace Assignment4
                 return maxNumOfIngredients;
             }
         }
-
+        #endregion
+        #region Constructors
         public FormMain()
         {
             InitializeComponent();
-            InitializeGUI();
             currRecipe = new Recipe(maxNumOfIngredients);
+            InitializeGUI();
         }
-
+        #endregion
+        #region Initializers
         /// <summary>
         /// Init GUI
         /// </summary>
@@ -48,14 +43,17 @@ namespace Assignment4
         {
             cmbFoodCategory.Items.Clear();
             cmbFoodCategory.DataSource = Enum.GetValues(typeof(FoodCategory));
+            btnEditFinish.Enabled = false;
         }
-
+        #endregion
+        #region Methods
         /// <summary>
         /// Update GUI
         /// </summary>
         private void UpdateGUI()
         {
-            throw new System.NotImplementedException();
+            lstRecipe.Items.Clear();
+            recipeManager.RecipeListToListBox(lstRecipe);
         }
 
         /// <summary>
@@ -74,10 +72,10 @@ namespace Assignment4
 
         private void btnAddRecipe_Click(object sender, EventArgs e)
         {
-            recipeManager.Add(txtNameRecipe.Text, (FoodCategory)cmbFoodCategory.SelectedItem, currRecipe.Ingredients, currRecipe.Description);
 
-            lstRecipe.Items.Clear();
-            recipeManager.RecipeListToListBox(lstRecipe);
+            recipeManager.Add(currRecipe.Name, currRecipe.Category, currRecipe.Ingredients, currRecipe.Description);
+
+            UpdateGUI();
 
             txtDescription.Text = String.Empty;
             txtNameRecipe.Text = String.Empty;
@@ -90,5 +88,62 @@ namespace Assignment4
         {
             currRecipe.Description = txtDescription.Text;
         }
+
+        private void lstRecipe_DoubleClick(object sender, EventArgs e)
+        {
+            //MessageBox.Show(recipeManager.GetRecipeAt(lstRecipe.SelectedIndex).Name);
+            FormRecipe fr = new FormRecipe(recipeManager.GetRecipeAt(lstRecipe.SelectedIndex));
+            fr.Show();
+        }
+
+        private void btnEditStart_Click(object sender, EventArgs e)
+        {
+            lstRecipe.Enabled = false;
+            btnEditStart.Enabled = false;
+            btnEditFinish.Enabled = true;
+            btnAddRecipe.Enabled = false;
+            currRecipe = recipeManager.GetRecipeAt(lstRecipe.SelectedIndex);
+            txtDescription.Text = currRecipe.Description;
+            txtNameRecipe.Text = currRecipe.Name;
+            cmbFoodCategory.SelectedIndex = (int)currRecipe.Category;
+        }
+
+        private void btnEditFinish_Click(object sender, EventArgs e)
+        {
+            recipeManager.ChangeElementAtIndex(lstRecipe.SelectedIndex, currRecipe);
+            currRecipe = new Recipe(maxNumOfIngredients);
+            txtNameRecipe.Text = String.Empty;
+            txtDescription.Text = String.Empty;
+            cmbFoodCategory.SelectedIndex = 0;
+            btnAddRecipe.Enabled = true;
+            btnEditStart.Enabled = true;
+            btnEditFinish.Enabled = false;
+            lstRecipe.Enabled = true;
+
+            UpdateGUI();
+        }
+
+        private void txtNameRecipe_TextChanged(object sender, EventArgs e)
+        {
+            currRecipe.Name = txtNameRecipe.Text;
+        }
+
+        private void cmbFoodCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbFoodCategory.SelectedIndex >= 0)
+            {
+                FoodCategory fc;
+                //Enum.TryParse<FoodCategory>(cmbFoodCategory.SelectedValue.ToString(), true, out fc);
+                fc = (FoodCategory)cmbFoodCategory.SelectedIndex;
+                currRecipe.Category = fc;
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            recipeManager.DeleteElement(lstRecipe.SelectedIndex);
+            UpdateGUI();
+        }
+        #endregion
     }
 }

@@ -5,22 +5,17 @@
 /// </summary>
 /// 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
-
 namespace Assignment4.Forms
 {
     public class Recipe : IDisposable
     {
+        #region Fields
         private FoodCategory category;
         private string? description;
         private string[]? ingredients;
         private string? name;
-
+        #endregion
+        #region Constructors
         public Recipe(int maxNumOfIngredients)
         {
             ingredients = new string[maxNumOfIngredients];
@@ -40,41 +35,24 @@ namespace Assignment4.Forms
             this.ingredients = ingredients;
             this.description = description;
         }
-
+        #endregion
+        #region Properties
         public FoodCategory Category
         {
             get => category;
-            set
-            {
-                if(typeof(Recipe).IsAssignableFrom(value.GetType()))
-                {
-                    category = value;
-                }
-            }
+            set => category = value;
         }
 
         public string Description
         {
             get => description;
-            set
-            {
-                if(typeof(string).IsAssignableFrom(value.GetType()))
-                {  
-                    description = value; 
-                }
-            }
+            set => description = value;
         }
 
         public string[] Ingredients
         {
             get => ingredients;
-            set
-            {
-                if (typeof(string[]).IsAssignableFrom(value.GetType()))
-                {
-                    ingredients = value;
-                }
-            }
+            set => ingredients = value;
         }
 
         public int MaxNumOfIngredients
@@ -85,15 +63,10 @@ namespace Assignment4.Forms
         public string Name
         {
             get => name;
-            set
-            {
-                if(typeof(string).IsAssignableFrom(value.GetType()))
-                {
-                    name = value;
-                }
-            }
+            set => name = value;
         }
-
+        #endregion
+        #region Methods
         public bool AddIngredient(string input, out int lastIndex)
         {
             bool ok = true;
@@ -157,8 +130,9 @@ namespace Assignment4.Forms
         }
 
         public void Dispose()
-        { 
+        {
             //throw new System.NotImplementedException();
         }
+        #endregion
     }
 }

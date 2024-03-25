@@ -42,7 +42,9 @@ namespace Assignment4.Forms
         public void InitializeGUI()
         {
             btnAdd.Enabled = false;
-            //TODO: Add Enabled/Disabled for Edit and Delete also
+            btnEdit.Enabled = false;
+            btnDelete.Enabled = false;
+            btnOK.Enabled = false;
             AddIngredients(CurrRecipe);
             UpdateGUI();
         }
@@ -85,6 +87,7 @@ namespace Assignment4.Forms
             if (lstIngredients.Enabled)
             {
                 lstIngredients.Items.Add(txtNameIngredient.Text);
+                lstIngredients.SelectedIndex = 0;
             }
             else
             {
@@ -93,6 +96,7 @@ namespace Assignment4.Forms
                 btnEdit.Enabled = true;
                 btnDelete.Enabled = true;
                 btnAdd.Text = "Add";
+                lstIngredients.SelectedIndex = 0;
             }
             txtNameIngredient.Text = String.Empty;
             UpdateGUI();
@@ -137,11 +141,10 @@ namespace Assignment4.Forms
             IngredientIndex = lstIngredients.SelectedIndex;
             txtNameIngredient.Text = lstIngredients?.SelectedItem?.ToString();
         }
-        #endregion
 
         private void txtNameIngredient_TextChanged(object sender, EventArgs e)
         {
-            if(txtNameIngredient.Text.Length > 0)
+            if (txtNameIngredient.Text.Length > 0)
             {
                 btnAdd.Enabled = true;
             }
@@ -150,5 +153,30 @@ namespace Assignment4.Forms
                 btnAdd.Enabled = false;
             }
         }
+
+        private void lstIngredients_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int count = 0;
+            foreach (var item in lstIngredients.Items)
+            {
+                if (item is not null)
+                {
+                    count++;
+                }
+            }
+            if (count > 0)
+            {
+                btnOK.Enabled = true;
+                btnEdit.Enabled = true;
+                btnDelete.Enabled = true;
+            }
+            else
+            {
+                btnOK.Enabled = false;
+                btnEdit.Enabled = false;
+                btnDelete.Enabled = false;
+            }
+        }
+        #endregion
     }
 }

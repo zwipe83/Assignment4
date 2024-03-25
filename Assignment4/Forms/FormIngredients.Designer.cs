@@ -63,6 +63,7 @@
             lstIngredients.Name = "lstIngredients";
             lstIngredients.Size = new Size(391, 274);
             lstIngredients.TabIndex = 5;
+            lstIngredients.SelectedIndexChanged += lstIngredients_SelectedIndexChanged;
             // 
             // btnDelete
             // 

@@ -5,17 +5,12 @@
 /// </summary>
 /// 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Assignment4.Forms
 {
+    #region Enums
     public enum FoodCategory
     {
-        Meats,
+        Meats = 0,
         Pasta,
         Pizza,
         Fish,
@@ -27,4 +22,5 @@ namespace Assignment4.Forms
         Vegetarian_Dairy_Egg,
         Other
     }
+    #endregion
 }

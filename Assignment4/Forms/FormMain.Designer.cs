@@ -101,6 +101,7 @@
             cmbFoodCategory.Name = "cmbFoodCategory";
             cmbFoodCategory.Size = new Size(134, 23);
             cmbFoodCategory.TabIndex = 3;
+            cmbFoodCategory.SelectedIndexChanged += cmbFoodCategory_SelectedIndexChanged;
             // 
             // lblCategory
             // 
@@ -117,6 +118,7 @@
             txtNameRecipe.Name = "txtNameRecipe";
             txtNameRecipe.Size = new Size(239, 23);
             txtNameRecipe.TabIndex = 1;
+            txtNameRecipe.TextChanged += txtNameRecipe_TextChanged;
             // 
             // lblNameRecipe
             // 
@@ -135,6 +137,7 @@
             lstRecipe.Name = "lstRecipe";
             lstRecipe.Size = new Size(671, 334);
             lstRecipe.TabIndex = 1;
+            lstRecipe.DoubleClick += lstRecipe_DoubleClick;
             // 
             // btnEditStart
             // 
@@ -144,6 +147,7 @@
             btnEditStart.TabIndex = 2;
             btnEditStart.Text = "Edit-Begin";
             btnEditStart.UseVisualStyleBackColor = true;
+            btnEditStart.Click += btnEditStart_Click;
             // 
             // btnEditFinish
             // 
@@ -153,6 +157,7 @@
             btnEditFinish.TabIndex = 3;
             btnEditFinish.Text = "Edit-Finish";
             btnEditFinish.UseVisualStyleBackColor = true;
+            btnEditFinish.Click += btnEditFinish_Click;
             // 
             // btnDelete
             // 
@@ -162,6 +167,7 @@
             btnDelete.TabIndex = 4;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnClear
             // 
