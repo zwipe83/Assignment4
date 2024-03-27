@@ -1,4 +1,7 @@
-﻿/// <summary>
+﻿
+using Assignment4.Wpf;
+
+/// <summary>
 /// Filename: Program.cs
 /// Created on: 2024-03-16 00:00:00
 /// Author: Samuel Jeffman
@@ -19,6 +22,13 @@ namespace Assignment4.Forms
         public RecipeManager(int maxNumOfElements)
         {
             recipeList = new Recipe[maxNumOfElements];
+        }
+        #endregion
+        #region Properties
+        public Recipe[] RecipeList
+        {
+            get => recipeList;
+            set => recipeList = value;
         }
         #endregion
         #region Methods
@@ -47,7 +57,10 @@ namespace Assignment4.Forms
         /// </summary>
         public void ChangeElementAtIndex(int index, Recipe recipe)
         {
-            recipeList[index] = recipe;
+            if (CheckIndex(index))
+            {
+                RecipeList[index] = recipe;
+            }
         }
 
         /// <summary>
@@ -55,7 +68,7 @@ namespace Assignment4.Forms
         /// </summary>
         private bool CheckIndex(int index)
         {
-            throw new System.NotImplementedException();
+            return (index >= 0 && index < RecipeList.Length);
         }
 
         /// <summary>
@@ -63,7 +76,11 @@ namespace Assignment4.Forms
         /// </summary>
         public void DeleteElement(int index)
         {
-            recipeList[index] = null;
+            if (CheckIndex(index))
+            {
+                RecipeList[index] = null;
+                MoveElementsOneStepToLeft(index);
+            }
         }
 
         /// <summary>
@@ -73,9 +90,9 @@ namespace Assignment4.Forms
         {
             int index = -1;
 
-            for (int i = 0; i < recipeList.Length; i++)
+            for (int i = 0; i < RecipeList.Length; i++)
             {
-                if (recipeList[i] == null)
+                if (RecipeList[i] == null)
                 {
                     index = i;
                     break;
@@ -91,7 +108,7 @@ namespace Assignment4.Forms
         {
             int count = 0;
 
-            for (int i = 0; i < recipeList.Length; i++)
+            for (int i = 0; i < RecipeList.Length; i++)
             {
                 if (recipeList[i] != null)
                     count++;
@@ -104,7 +121,7 @@ namespace Assignment4.Forms
         /// </summary>
         public Recipe? GetRecipeAt(int index)
         {
-            if (index >= 0 && index < recipeList.Length - 1)
+            if (CheckIndex(index))
             {
                 return recipeList[index];
             }
@@ -114,11 +131,19 @@ namespace Assignment4.Forms
         /// <summary>
         /// Move elements one step to left
         /// </summary>
-        private void MoveElementsOneStepToLeft(string index)
+        private void MoveElementsOneStepToLeft(int index)
         {
-            throw new System.NotImplementedException();
+            for (int i = index; i < RecipeList.Length - 1; i++)
+            {
+                RecipeList[i] = RecipeList[i + 1];
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <returns></returns>
         public int GetNumOfIngredients(Recipe recipe)
         {
             int ingredients = 0;

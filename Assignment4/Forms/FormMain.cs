@@ -61,18 +61,28 @@ namespace Assignment4
         /// </summary>
         private void ClearSelection()
         {
-            throw new System.NotImplementedException();
+            throw new System.NotImplementedException(); //TODO: Not sure what this is supposed to do.
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddIngredient_Click(object sender, EventArgs e)
         {
-            FormIngredients fi = new FormIngredients(currRecipe);
-            fi.Show();
+            FormIngredients formIngredient = new FormIngredients(currRecipe);
+            formIngredient.Show();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddRecipe_Click(object sender, EventArgs e)
         {
-
+            //TODO: Add checks before blindly adding stuff
             recipeManager.Add(currRecipe.Name, currRecipe.Category, currRecipe.Ingredients, currRecipe.Description);
 
             UpdateGUI();
@@ -84,18 +94,32 @@ namespace Assignment4
             currRecipe = new Recipe(maxNumOfIngredients);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
             currRecipe.Description = txtDescription.Text;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstRecipe_DoubleClick(object sender, EventArgs e)
         {
-            //MessageBox.Show(recipeManager.GetRecipeAt(lstRecipe.SelectedIndex).Name);
-            FormRecipe fr = new FormRecipe(recipeManager.GetRecipeAt(lstRecipe.SelectedIndex));
-            fr.Show();
+            FormRecipe formRecipe = new FormRecipe(recipeManager.GetRecipeAt(lstRecipe.SelectedIndex));
+            formRecipe.Show();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEditStart_Click(object sender, EventArgs e)
         {
             lstRecipe.Enabled = false;
@@ -108,6 +132,11 @@ namespace Assignment4
             cmbFoodCategory.SelectedIndex = (int)currRecipe.Category;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEditFinish_Click(object sender, EventArgs e)
         {
             recipeManager.ChangeElementAtIndex(lstRecipe.SelectedIndex, currRecipe);
@@ -123,22 +152,37 @@ namespace Assignment4
             UpdateGUI();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtNameRecipe_TextChanged(object sender, EventArgs e)
         {
+            //TODO: Null check
             currRecipe.Name = txtNameRecipe.Text;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbFoodCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbFoodCategory.SelectedIndex >= 0)
             {
-                FoodCategory fc;
-                //Enum.TryParse<FoodCategory>(cmbFoodCategory.SelectedValue.ToString(), true, out fc);
-                fc = (FoodCategory)cmbFoodCategory.SelectedIndex;
-                currRecipe.Category = fc;
+                FoodCategory foodCategory;
+                foodCategory = (FoodCategory)cmbFoodCategory.SelectedIndex;
+                currRecipe.Category = foodCategory;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             recipeManager.DeleteElement(lstRecipe.SelectedIndex);

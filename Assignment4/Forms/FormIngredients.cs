@@ -50,6 +50,10 @@ namespace Assignment4.Forms
         }
         #endregion
         #region Methods
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="recipe"></param>
         private void AddIngredients(Recipe recipe)
         {
             foreach (string ingredient in recipe.Ingredients)
@@ -60,13 +64,16 @@ namespace Assignment4.Forms
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private int CountIngredients()
         {
             int count = 0;
             foreach (var ingredient in lstIngredients.Items)
             {
-                if (ingredient != null)
+                if (!string.IsNullOrEmpty((string)ingredient))
                 {
                     count++;
                 }
@@ -82,66 +89,125 @@ namespace Assignment4.Forms
             lblCurrNumber.Text = CountIngredients().ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (lstIngredients.Enabled)
+            try
             {
-                lstIngredients.Items.Add(txtNameIngredient.Text);
-                lstIngredients.SelectedIndex = 0;
+                if (lstIngredients.Enabled)
+                {
+                    lstIngredients.Items.Add(txtNameIngredient.Text ?? throw new ArgumentNullException(nameof(txtNameIngredient.Name), "Input string cannot be null or empty.")); //TODO: Verify exception
+                    lstIngredients.SelectedIndex = 0;
+                }
+                else
+                {
+                    //FIXED: Maybe null check?
+                    if (IngredientIndex >= 0 && IngredientIndex < lstIngredients.Items.Count)
+                    {
+                        lstIngredients.Items[IngredientIndex] = txtNameIngredient.Text ?? throw new ArgumentNullException(nameof(txtNameIngredient.Name), "Input string cannot be null or empty.");
+                        lstIngredients.Enabled = true;
+                        btnEdit.Enabled = true;
+                        btnDelete.Enabled = true;
+                        btnAdd.Text = "Add";
+                        lstIngredients.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        throw new IndexOutOfRangeException("Index is out of range");
+                    }
+                }
+                txtNameIngredient.Text = String.Empty;
+                UpdateGUI();
             }
-            else
+            catch (ArgumentNullException ex)
             {
-                lstIngredients.Items[IngredientIndex] = txtNameIngredient.Text;
-                lstIngredients.Enabled = true;
-                btnEdit.Enabled = true;
-                btnDelete.Enabled = true;
-                btnAdd.Text = "Add";
-                lstIngredients.SelectedIndex = 0;
+                MessageBox.Show(ex.Message);
             }
-            txtNameIngredient.Text = String.Empty;
-            UpdateGUI();
+            catch (IndexOutOfRangeException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOK_Click(object sender, EventArgs e)
         {
-            Recipe recipe = new Recipe(FormMain.MaxNumOfIngredients);
-            int lastIndex;
-
-            foreach (var ingredient in lstIngredients.Items)
+            try
             {
-                if (ingredient != null)
-                {
-                    recipe.AddIngredient(ingredient?.ToString(), out lastIndex);
-                }
-            }
+                Recipe recipe = new Recipe(FormMain.MaxNumOfIngredients);
 
-            CurrRecipe.Ingredients = recipe.Ingredients;
-            recipe.Dispose();
-            this.Close();
+                foreach (var ingredient in lstIngredients.Items)
+                {
+                    if (!string.IsNullOrEmpty((string)ingredient))
+                    {
+                        recipe.AddIngredient((string)ingredient, out int lastIndex);
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException(nameof(sender), "Input string cannot be null or empty.");
+                    }
+                }
+
+                CurrRecipe.Ingredients = recipe.Ingredients;
+                recipe.Dispose(); //TODO: Most likely not needed
+                Close();
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            lstIngredients.Items.RemoveAt(lstIngredients.SelectedIndex);
+            lstIngredients.Items.RemoveAt(lstIngredients.SelectedIndex); //TODO: Check?
             txtNameIngredient.Text = String.Empty;
             UpdateGUI();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEdit_Click(object sender, EventArgs e)
         {
             lstIngredients.Enabled = false;
             btnEdit.Enabled = false;
             btnDelete.Enabled = false;
             btnAdd.Text = "Save";
-            IngredientIndex = lstIngredients.SelectedIndex;
+            IngredientIndex = lstIngredients.SelectedIndex; //TODO: Maybe null check?
             txtNameIngredient.Text = lstIngredients?.SelectedItem?.ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtNameIngredient_TextChanged(object sender, EventArgs e)
         {
             if (txtNameIngredient.Text.Length > 0)
@@ -154,6 +220,11 @@ namespace Assignment4.Forms
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstIngredients_SelectedIndexChanged(object sender, EventArgs e)
         {
             int count = 0;
@@ -164,6 +235,7 @@ namespace Assignment4.Forms
                     count++;
                 }
             }
+
             if (count > 0)
             {
                 btnOK.Enabled = true;

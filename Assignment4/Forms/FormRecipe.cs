@@ -23,6 +23,9 @@
         }
         #endregion
         #region Initializers
+        /// <summary>
+        /// 
+        /// </summary>
         private void InitGUI()
         {
             this.Text = Recipe.Name;
@@ -31,6 +34,11 @@
         }
         #endregion
         #region Methods
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <returns></returns>
         private string GetIngredients(Recipe recipe)
         {
             string? ingredients = String.Empty;
@@ -42,6 +50,12 @@
 
             return ingredients;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <returns></returns>
         private string GetInstructions(Recipe recipe)
         {
             string? instructions = String.Empty;

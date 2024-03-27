@@ -18,10 +18,10 @@ namespace Assignment4.Forms
         #region Constructors
         public Recipe(int maxNumOfIngredients)
         {
-            ingredients = new string[maxNumOfIngredients];
+            Ingredients = new string[maxNumOfIngredients];
         }
 
-        public Recipe(Recipe objToCopyFrom)
+        public Recipe(Recipe objToCopyFrom) //TODO: Remove?
         {
             category = objToCopyFrom.category;
             description = objToCopyFrom.description;
@@ -30,10 +30,10 @@ namespace Assignment4.Forms
         }
         public Recipe(string name, FoodCategory category, string[] ingredients, string description)
         {
-            this.name = name;
-            this.category = category;
-            this.ingredients = ingredients;
-            this.description = description;
+            Name = name;
+            Category = category;
+            Ingredients = ingredients;
+            Description = description;
         }
         #endregion
         #region Properties
@@ -49,7 +49,7 @@ namespace Assignment4.Forms
             set => description = value;
         }
 
-        public string[] Ingredients
+        public string[]? Ingredients
         {
             get => ingredients;
             set => ingredients = value;
@@ -67,68 +67,160 @@ namespace Assignment4.Forms
         }
         #endregion
         #region Methods
-        public bool AddIngredient(string input, out int lastIndex)
+
+        /// <summary>
+        /// Add an ingredient to current recipe
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="lastIndex"></param>
+        /// <returns></returns>
+        public bool AddIngredient(string input, out int lastIndex) //TODO: Is lastIndex needed?
         {
             bool ok = true;
             int index = FindVacantPosition();
 
-            if ((index >= 0) && (input != null) && (input != String.Empty))
+            if (CheckIndex(index) && CheckInput(input))
             {
-                ingredients[index] = input;
+                Ingredients[index] = input; //FIXED: Maybe null check?
             }
             else
+            {
                 ok = false;
+            }
 
             lastIndex = index;
 
             return ok;
         }
 
+        /// <summary>
+        /// Check for correct input
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        private bool CheckInput(string input)
+        {
+            return !string.IsNullOrEmpty(input);
+        }
+
+        /// <summary>
+        /// Change an ingredient in a specific recipe
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public bool ChangeIngredientAt(int index, string value)
         {
-            throw new System.NotImplementedException();
+            bool ok = true;
+            if (CheckIndex(index) && CheckInput(value))
+            {
+                Ingredients[index] = value;
+            }
+            else
+            {
+                ok = false;
+            }
+
+            return ok;
         }
 
+        /// <summary>
+        /// Check index is in range
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         private bool CheckIndex(int index)
         {
-            throw new System.NotImplementedException();
+            return (index >= 0 && index < Ingredients.Length);
         }
 
+        /// <summary>
+        /// Check Ingredients is not null
+        /// </summary>
+        /// <param name="ingredients"></param>
+        /// <returns></returns>
+        private bool CheckIngredients(string[] ingredients)
+        {
+            return (ingredients is not null);
+        }
+
+        /// <summary>
+        /// Get current number of ingredients
+        /// </summary>
+        /// <returns></returns>
         public int CurrentNumberOfIngredients()
         {
-            throw new System.NotImplementedException();
+            int count = 0;
+
+            if (CheckIngredients(Ingredients))
+            {
+                foreach (var ingredient in Ingredients) //FIXED: Maybe add null check
+                {
+                    if (ingredient != null)
+                    {
+                        count++;
+                    }
+                }
+            }
+            return count;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <exception cref="System.NotImplementedException"></exception>
         public void DefaultValues()
         {
             throw new System.NotImplementedException();
         }
 
+        /// <summary>
+        /// Delete an ingredient from a recipe
+        /// </summary>
+        /// <param name="index"></param>
         public void DeleteIngredientAt(int index)
         {
-            throw new System.NotImplementedException();
+            if (CheckIndex(index) && CheckIngredients(Ingredients)) //FIXED: Maybe add null check
+            {
+                Ingredients[index] = null;
+            }
         }
 
+        /// <summary>
+        /// Find first vacant(null) position in array
+        /// </summary>
+        /// <returns></returns>
         private int FindVacantPosition()
         {
             int index = -1;
 
-            for (int i = 0; i < ingredients.Length; i++)
+            if (CheckIngredients(Ingredients))
             {
-                if (ingredients[i] == null)
+                for (int i = 0; i < Ingredients.Length; i++) //FIXED: Maybe add null check
                 {
-                    index = i;
-                    break;
+                    if (Ingredients[i] == null)
+                    {
+                        index = i;
+                        break;
+                    }
                 }
             }
+
             return index;
         }
 
+        /// <summary>
+        /// Override for ToString()
+        /// </summary>
+        /// <returns>Name of recipe</returns>
         public override string ToString()
         {
             return Name;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
             //throw new System.NotImplementedException();

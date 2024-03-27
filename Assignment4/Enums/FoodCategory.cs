@@ -8,6 +8,9 @@
 namespace Assignment4.Forms
 {
     #region Enums
+    /// <summary>
+    /// 
+    /// </summary>
     public enum FoodCategory
     {
         Meats = 0,
