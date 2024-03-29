@@ -80,7 +80,7 @@ namespace Assignment4
         }
 
         /// <summary>
-        /// 
+        /// Opens a new form where you can add ingredients to recipe
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -91,14 +91,13 @@ namespace Assignment4
         }
 
         /// <summary>
-        /// 
+        /// Adds current recipe to recipeManager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAddRecipe_Click(object sender, EventArgs e)
         {
             //FIXED: Add checks before blindly adding stuff
-
             try
             {
                 if (string.IsNullOrEmpty(currRecipe.Name))
@@ -124,14 +123,14 @@ namespace Assignment4
 
                 UpdateGUI();
             }
-            catch (InvalidOperationException ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
 
         /// <summary>
-        /// 
+        /// Handle decription text changed
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -148,66 +147,87 @@ namespace Assignment4
         }
 
         /// <summary>
-        /// 
+        /// Gets ingredients and description for selected recipe
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void lstRecipe_DoubleClick(object sender, EventArgs e)
         {
-            if (lstRecipe.SelectedIndex < 0)
+            try
             {
-                return; //Maybe you clicked on an empty line in the list?
-            }
+                if (lstRecipe.SelectedIndex < 0)
+                {
+                    return; //Maybe you clicked on an empty line in the list? Do nothing...
+                }
 
-            FormRecipe formRecipe = new FormRecipe(recipeManager.GetRecipeAt(lstRecipe.SelectedIndex));
-            formRecipe.Show();
+                FormRecipe formRecipe = new FormRecipe(recipeManager.GetRecipeAt(lstRecipe.SelectedIndex));
+                formRecipe.Show();
+            }
+            catch (Exception ex) 
+            { 
+                MessageBox.Show(ex.Message);
+            }
         }
 
         /// <summary>
-        /// 
+        /// Initiates an edit of a recipe
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnEditStart_Click(object sender, EventArgs e)
         {
-            lstRecipe.Enabled = false;
-            btnEditStart.Enabled = false;
-            btnEditFinish.Enabled = true;
-            btnAddRecipe.Enabled = false;
-            currRecipe = recipeManager.GetRecipeAt(lstRecipe.SelectedIndex);
-            txtDescription.Text = currRecipe.Description;
-            txtNameRecipe.Text = currRecipe.Name;
-            cmbFoodCategory.SelectedIndex = (int)currRecipe.Category;
+            try
+            {
+                lstRecipe.Enabled = false;
+                btnEditStart.Enabled = false;
+                btnEditFinish.Enabled = true;
+                btnAddRecipe.Enabled = false;
+                currRecipe = recipeManager.GetRecipeAt(lstRecipe.SelectedIndex);
+                txtDescription.Text = currRecipe.Description;
+                txtNameRecipe.Text = currRecipe.Name;
+                cmbFoodCategory.SelectedIndex = (int)currRecipe.Category;
+            }
+            catch(Exception ex)
+            { 
+                MessageBox.Show(ex.Message); 
+            }
         }
 
         /// <summary>
-        /// 
+        /// Finish a recipe edit
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnEditFinish_Click(object sender, EventArgs e)
         {
-            recipeManager.ChangeElementAtIndex(lstRecipe.SelectedIndex, currRecipe);
-            ResetCreateNewRecipe();
+            try
+            {
+                recipeManager.ChangeElementAtIndex(lstRecipe.SelectedIndex, currRecipe);
+                ResetCreateNewRecipe();
 
-            UpdateGUI();
+                UpdateGUI();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         /// <summary>
-        /// 
+        /// Reset controls and add a new recipe
         /// </summary>
         private void ResetCreateNewRecipe()
         {
-            currRecipe = new Recipe(MaxNumOfIngredients);
             cmbFoodCategory.SelectedIndex = 0;
             btnAddRecipe.Enabled = true;
             btnEditStart.Enabled = true;
             btnEditFinish.Enabled = false;
             lstRecipe.Enabled = true;
+            currRecipe = new Recipe(MaxNumOfIngredients);
         }
 
         /// <summary>
-        /// 
+        /// Handle recipe name changed
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -224,7 +244,7 @@ namespace Assignment4
         }
 
         /// <summary>
-        /// 
+        /// Handle food category change
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -239,18 +259,25 @@ namespace Assignment4
         }
 
         /// <summary>
-        /// 
+        /// Delete a recipe from recipe manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            recipeManager.DeleteElement(lstRecipe.SelectedIndex);
-            UpdateGUI();
+            try
+            {
+                recipeManager.DeleteElement(lstRecipe.SelectedIndex);
+                UpdateGUI();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         /// <summary>
-        /// 
+        /// Clear current edit and selected recipe
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -260,7 +287,7 @@ namespace Assignment4
         }
 
         /// <summary>
-        /// 
+        /// Mark all text
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -270,7 +297,7 @@ namespace Assignment4
         }
 
         /// <summary>
-        /// 
+        /// Mark all text
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

@@ -24,7 +24,7 @@
         #endregion
         #region Initializers
         /// <summary>
-        /// 
+        /// initializes GUI
         /// </summary>
         private void InitGUI()
         {
@@ -35,7 +35,7 @@
         #endregion
         #region Methods
         /// <summary>
-        /// 
+        /// Get ingredients for current recipe
         /// </summary>
         /// <param name="recipe"></param>
         /// <returns></returns>
@@ -58,7 +58,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Get description for current recipe
         /// </summary>
         /// <param name="recipe"></param>
         /// <returns></returns>

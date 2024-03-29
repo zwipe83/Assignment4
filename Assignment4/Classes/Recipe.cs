@@ -189,7 +189,7 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// 
+        /// Sets default values for recipe
         /// </summary>
         public void DefaultValues(int maxNumOfIngredients)
         {

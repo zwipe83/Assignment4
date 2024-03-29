@@ -52,7 +52,7 @@ namespace Assignment4.Forms
         #endregion
         #region Methods
         /// <summary>
-        /// 
+        /// Adds ingredients from current recipe to listbox
         /// </summary>
         /// <param name="recipe"></param>
         private void AddIngredients(Recipe recipe)
@@ -66,7 +66,7 @@ namespace Assignment4.Forms
             }
         }
         /// <summary>
-        /// 
+        /// Count ingredients in the list
         /// </summary>
         /// <returns></returns>
         private int CountIngredients()
@@ -91,7 +91,7 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// 
+        /// Adds an ingredient to the list
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -134,7 +134,7 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// 
+        /// Handle exceptions
         /// </summary>
         /// <param name="ex"></param>
         private void HandleException(Exception ex)
@@ -143,7 +143,7 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// 
+        /// Goes through the list of ingredients and adds them to currRecipe
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -176,7 +176,7 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// 
+        /// Closes the window without saving anything
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -186,7 +186,7 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// 
+        /// Deletes an ingredient from the list
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -205,7 +205,7 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// 
+        /// Initiates editing of an ingredient
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -215,7 +215,7 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// 
+        /// Edit an ingredient
         /// </summary>
         private void EditIngredient()
         {
@@ -235,7 +235,7 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// 
+        /// Handle name change of ingredient
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -252,7 +252,7 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// 
+        /// Handle index change on ingredient list
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -282,7 +282,7 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// 
+        /// Initiate an edit of ingredient
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

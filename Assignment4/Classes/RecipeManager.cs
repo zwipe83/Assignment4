@@ -29,7 +29,7 @@ namespace Assignment4.Forms
         #endregion
         #region Methods
         /// <summary>
-        /// Add recipe
+        /// Add recipe to array
         /// </summary>
         public bool Add(Recipe recipe)
         {
@@ -49,7 +49,7 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// Add recipe
+        /// Add recipe to array
         /// </summary>
         public bool Add(string name, FoodCategory category, string[] ingredients, string description)
         {
@@ -58,10 +58,9 @@ namespace Assignment4.Forms
                 Add(new Recipe(name, category, ingredients, description));
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message, "Error");
-                return false;
+                throw;
             }
         }
 
@@ -70,9 +69,20 @@ namespace Assignment4.Forms
         /// </summary>
         public void ChangeElementAtIndex(int index, Recipe recipe)
         {
-            if (CheckIndex(index))
+            try
             {
-                RecipeList[index] = recipe;
+                if (CheckIndex(index))
+                {
+                    RecipeList[index] = recipe;
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException($"Invalid index({index}) when trying to change an element.");
+                }
+            }
+            catch
+            {
+                throw;
             }
         }
 
@@ -89,10 +99,21 @@ namespace Assignment4.Forms
         /// </summary>
         public void DeleteElement(int index)
         {
-            if (CheckIndex(index))
+            try
+            { 
+                if (CheckIndex(index))
+                {
+                    RecipeList[index] = null;
+                    MoveElementsOneStepToLeft(index);
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException($"Invalid index({index}) when trying to delete an element.");
+                }
+            }
+            catch
             {
-                RecipeList[index] = null;
-                MoveElementsOneStepToLeft(index);
+                throw;
             }
         }
 
@@ -134,11 +155,21 @@ namespace Assignment4.Forms
         /// </summary>
         public Recipe? GetRecipeAt(int index)
         {
-            if (CheckIndex(index))
-            {
-                return recipeList[index];
+            try
+            { 
+                if (CheckIndex(index))
+                {
+                    return recipeList[index];
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException($"Invalid index({index}) when trying to retreive an element.");
+                }
             }
-            return null;
+            catch
+            {
+                throw;
+            }
         }
 
         /// <summary>
