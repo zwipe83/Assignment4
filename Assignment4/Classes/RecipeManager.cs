@@ -1,12 +1,10 @@
-﻿
-using Assignment4.Wpf;
-
-/// <summary>
+﻿/// <summary>
 /// Filename: Program.cs
 /// Created on: 2024-03-16 00:00:00
 /// Author: Samuel Jeffman
 /// </summary>
 /// 
+using static Assignment4.FormMain;
 
 namespace Assignment4.Forms
 {
@@ -23,8 +21,6 @@ namespace Assignment4.Forms
         {
             recipeList = new Recipe[maxNumOfElements];
         }
-        #endregion
-        #region Properties
         public Recipe[] RecipeList
         {
             get => recipeList;
@@ -37,10 +33,19 @@ namespace Assignment4.Forms
         /// </summary>
         public bool Add(Recipe recipe)
         {
-            int index = FindVacantPosition();
-            recipeList[index] = recipe;
+            try
+            {
+                int index = FindVacantPosition();
+                if (index < 0)
+                    throw new IndexOutOfRangeException($"No vacant position for recipe found, array is full! Max count is: {MaxNumOfElements}");
+                recipeList[index] = recipe;
 
-            return true;
+                return true;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -48,8 +53,16 @@ namespace Assignment4.Forms
         /// </summary>
         public bool Add(string name, FoodCategory category, string[] ingredients, string description)
         {
-            Add(new Recipe(name, category, ingredients, description));
-            return true;
+            try
+            {
+                Add(new Recipe(name, category, ingredients, description));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+                return false;
+            }
         }
 
         /// <summary>

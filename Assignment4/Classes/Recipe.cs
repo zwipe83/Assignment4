@@ -4,10 +4,9 @@
 /// Author: Samuel Jeffman
 /// </summary>
 /// 
-
 namespace Assignment4.Forms
 {
-    public class Recipe : IDisposable
+    public class Recipe
     {
         #region Fields
         private FoodCategory category;
@@ -18,52 +17,79 @@ namespace Assignment4.Forms
         #region Constructors
         public Recipe(int maxNumOfIngredients)
         {
-            Ingredients = new string[maxNumOfIngredients];
+            DefaultValues(maxNumOfIngredients);
         }
 
-        public Recipe(Recipe objToCopyFrom) //TODO: Remove?
+        public Recipe(Recipe recipeToCopyFrom) //TODO: Remove?
         {
-            category = objToCopyFrom.category;
-            description = objToCopyFrom.description;
-            ingredients = objToCopyFrom.ingredients;
-            name = objToCopyFrom.name;
+            category = recipeToCopyFrom.category;
+            description = recipeToCopyFrom.description;
+            ingredients = recipeToCopyFrom.ingredients;
+            name = recipeToCopyFrom.name;
         }
         public Recipe(string name, FoodCategory category, string[] ingredients, string description)
         {
-            Name = name;
-            Category = category;
-            Ingredients = ingredients;
-            Description = description;
+            try
+            {
+                Name = name;
+                Category = category;
+                Ingredients = ingredients;
+                Description = description;
+            }
+            catch
+            {
+                throw;
+            }
         }
         #endregion
         #region Properties
         public FoodCategory Category
         {
             get => category;
-            set => category = value;
+            set
+            {
+                category = value;
+            }
         }
 
         public string Description
         {
             get => description;
-            set => description = value;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    description = string.Empty;
+                    throw new ArgumentException("Description can not be null or empty.");
+                }
+                description = value;
+            }
         }
 
         public string[]? Ingredients
         {
             get => ingredients;
-            set => ingredients = value;
+            set
+            {
+                if (value != null && value.Length > 0)
+                {
+                    ingredients = value;
+                }
+            }
         }
 
-        public int MaxNumOfIngredients
-        {
-            get => ingredients.Length;
-        }
-
-        public string Name
+        public string? Name
         {
             get => name;
-            set => name = value;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    name = string.Empty;
+                    throw new ArgumentException("Name can not be null or empty.");
+                }
+                name = value;
+            }
         }
         #endregion
         #region Methods
@@ -72,9 +98,8 @@ namespace Assignment4.Forms
         /// Add an ingredient to current recipe
         /// </summary>
         /// <param name="input"></param>
-        /// <param name="lastIndex"></param>
         /// <returns></returns>
-        public bool AddIngredient(string input, out int lastIndex) //TODO: Is lastIndex needed?
+        public bool AddIngredient(string input) //FIXED: Is lastIndex needed?
         {
             bool ok = true;
             int index = FindVacantPosition();
@@ -87,8 +112,6 @@ namespace Assignment4.Forms
             {
                 ok = false;
             }
-
-            lastIndex = index;
 
             return ok;
         }
@@ -168,10 +191,12 @@ namespace Assignment4.Forms
         /// <summary>
         /// 
         /// </summary>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public void DefaultValues()
+        public void DefaultValues(int maxNumOfIngredients)
         {
-            throw new System.NotImplementedException();
+            Name = "<Enter recipe name>";
+            Category = FoodCategory.Meats;
+            Description = "<Enter recipe descriptions>";
+            Ingredients = new string[maxNumOfIngredients];
         }
 
         /// <summary>
@@ -216,14 +241,6 @@ namespace Assignment4.Forms
         public override string ToString()
         {
             return Name;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Dispose()
-        {
-            //throw new System.NotImplementedException();
         }
         #endregion
     }

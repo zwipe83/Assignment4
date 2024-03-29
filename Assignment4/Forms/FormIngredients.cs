@@ -4,6 +4,7 @@
 /// Author: Samuel Jeffman
 /// </summary>
 /// 
+using static Assignment4.FormMain;
 
 namespace Assignment4.Forms
 {
@@ -41,7 +42,7 @@ namespace Assignment4.Forms
         /// </summary>
         public void InitializeGUI()
         {
-            btnAdd.Enabled = false;
+            btnAdd.Enabled = false; //FIXED: Release should be false
             btnEdit.Enabled = false;
             btnDelete.Enabled = false;
             btnOK.Enabled = false;
@@ -86,7 +87,7 @@ namespace Assignment4.Forms
         /// </summary>
         private void UpdateGUI()
         {
-            lblCurrNumber.Text = CountIngredients().ToString();
+            lblCurrNumber.Text = $"{CountIngredients()}/{MaxNumOfIngredients}";
         }
 
         /// <summary>
@@ -98,39 +99,47 @@ namespace Assignment4.Forms
         {
             try
             {
-                if (lstIngredients.Enabled)
+                if (lstIngredients.Enabled) // Add new
                 {
-                    lstIngredients.Items.Add(txtNameIngredient.Text ?? throw new ArgumentNullException(nameof(txtNameIngredient.Name), "Input string cannot be null or empty.")); //TODO: Verify exception
-                    lstIngredients.SelectedIndex = 0;
-                }
-                else
-                {
-                    //FIXED: Maybe null check?
-                    if (IngredientIndex >= 0 && IngredientIndex < lstIngredients.Items.Count)
+                    if (CountIngredients() >= MaxNumOfIngredients)
                     {
-                        lstIngredients.Items[IngredientIndex] = txtNameIngredient.Text ?? throw new ArgumentNullException(nameof(txtNameIngredient.Name), "Input string cannot be null or empty.");
-                        lstIngredients.Enabled = true;
-                        btnEdit.Enabled = true;
-                        btnDelete.Enabled = true;
-                        btnAdd.Text = "Add";
-                        lstIngredients.SelectedIndex = 0;
+                        throw new InvalidOperationException($"Too many ingredients! The limit is {MaxNumOfIngredients}");
                     }
-                    else
+
+                    var ingredientText = txtNameIngredient.Text?.Trim() ?? throw new ArgumentNullException(nameof(txtNameIngredient.Name), "Input string cannot be null or empty.");
+                    lstIngredients.SelectedIndex = lstIngredients.Items.Add(ingredientText);
+                }
+                else // Edit existing
+                {
+                    if (IngredientIndex < 0 || IngredientIndex >= MaxNumOfIngredients)
                     {
                         throw new IndexOutOfRangeException("Index is out of range");
                     }
+
+                    var ingredientText = txtNameIngredient.Text?.Trim() ?? throw new ArgumentNullException(nameof(txtNameIngredient.Name), "Input string cannot be null or empty.");
+                    lstIngredients.Items[IngredientIndex] = ingredientText;
+                    lstIngredients.Enabled = true;
+                    btnEdit.Enabled = true;
+                    btnDelete.Enabled = true;
+                    btnAdd.Text = "Add";
                 }
-                txtNameIngredient.Text = String.Empty;
+
+                txtNameIngredient.Text = string.Empty;
                 UpdateGUI();
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                HandleException(ex);
             }
-            catch (IndexOutOfRangeException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ex"></param>
+        private void HandleException(Exception ex)
+        {
+            MessageBox.Show(ex.Message);
         }
 
         /// <summary>
@@ -142,13 +151,13 @@ namespace Assignment4.Forms
         {
             try
             {
-                Recipe recipe = new Recipe(FormMain.MaxNumOfIngredients);
+                Recipe recipe = new Recipe(MaxNumOfIngredients);
 
                 foreach (var ingredient in lstIngredients.Items)
                 {
                     if (!string.IsNullOrEmpty((string)ingredient))
                     {
-                        recipe.AddIngredient((string)ingredient, out int lastIndex);
+                        recipe.AddIngredient((string)ingredient);
                     }
                     else
                     {
@@ -157,7 +166,7 @@ namespace Assignment4.Forms
                 }
 
                 CurrRecipe.Ingredients = recipe.Ingredients;
-                recipe.Dispose(); //TODO: Most likely not needed
+
                 Close();
             }
             catch (ArgumentNullException ex)
@@ -183,9 +192,16 @@ namespace Assignment4.Forms
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            lstIngredients.Items.RemoveAt(lstIngredients.SelectedIndex); //TODO: Check?
-            txtNameIngredient.Text = String.Empty;
-            UpdateGUI();
+            try
+            {
+                lstIngredients.Items.RemoveAt((lstIngredients.SelectedIndex >= 0 && lstIngredients.SelectedIndex < MaxNumOfIngredients) ? lstIngredients.SelectedIndex : throw new IndexOutOfRangeException("Selected index is out of range.")); //FIXED: Check?
+                txtNameIngredient.Text = String.Empty;
+                UpdateGUI();
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         /// <summary>
@@ -195,12 +211,27 @@ namespace Assignment4.Forms
         /// <param name="e"></param>
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            lstIngredients.Enabled = false;
-            btnEdit.Enabled = false;
-            btnDelete.Enabled = false;
-            btnAdd.Text = "Save";
-            IngredientIndex = lstIngredients.SelectedIndex; //TODO: Maybe null check?
-            txtNameIngredient.Text = lstIngredients?.SelectedItem?.ToString();
+            EditIngredient();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void EditIngredient()
+        {
+            try
+            {
+                lstIngredients.Enabled = false;
+                btnEdit.Enabled = false;
+                btnDelete.Enabled = false;
+                btnAdd.Text = "Save";
+                IngredientIndex = (lstIngredients.SelectedIndex >= 0 && lstIngredients.SelectedIndex < MaxNumOfIngredients) ? lstIngredients.SelectedIndex : throw new IndexOutOfRangeException("Selected index is out of range."); //FIXED: Maybe null check?
+                txtNameIngredient.Text = lstIngredients?.SelectedItem?.ToString();
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         /// <summary>
@@ -248,6 +279,16 @@ namespace Assignment4.Forms
                 btnEdit.Enabled = false;
                 btnDelete.Enabled = false;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lstIngredients_DoubleClick(object sender, EventArgs e)
+        {
+            EditIngredient();
         }
         #endregion
     }

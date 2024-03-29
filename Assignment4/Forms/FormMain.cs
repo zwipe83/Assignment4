@@ -26,12 +26,19 @@ namespace Assignment4
                 return maxNumOfIngredients;
             }
         }
+        public static int MaxNumOfElements
+        {
+            get
+            {
+                return maxNumOfElements;
+            }
+        }
         #endregion
         #region Constructors
         public FormMain()
         {
             InitializeComponent();
-            currRecipe = new Recipe(maxNumOfIngredients);
+            currRecipe = new Recipe(MaxNumOfIngredients);
             InitializeGUI();
         }
         #endregion
@@ -43,6 +50,8 @@ namespace Assignment4
         {
             cmbFoodCategory.Items.Clear();
             cmbFoodCategory.DataSource = Enum.GetValues(typeof(FoodCategory));
+            txtNameRecipe.Text = currRecipe.Name;
+            txtDescription.Text = currRecipe.Description;
             btnEditFinish.Enabled = false;
         }
         #endregion
@@ -54,6 +63,8 @@ namespace Assignment4
         {
             lstRecipe.Items.Clear();
             recipeManager.RecipeListToListBox(lstRecipe);
+            txtNameRecipe.Text = currRecipe.Name;
+            txtDescription.Text = currRecipe.Description;
         }
 
         /// <summary>
@@ -61,7 +72,11 @@ namespace Assignment4
         /// </summary>
         private void ClearSelection()
         {
-            throw new System.NotImplementedException(); //TODO: Not sure what this is supposed to do.
+            lstRecipe.SelectedIndex = -1;
+
+            ResetCreateNewRecipe();
+
+            UpdateGUI();
         }
 
         /// <summary>
@@ -82,16 +97,37 @@ namespace Assignment4
         /// <param name="e"></param>
         private void btnAddRecipe_Click(object sender, EventArgs e)
         {
-            //TODO: Add checks before blindly adding stuff
-            recipeManager.Add(currRecipe.Name, currRecipe.Category, currRecipe.Ingredients, currRecipe.Description);
+            //FIXED: Add checks before blindly adding stuff
 
-            UpdateGUI();
+            try
+            {
+                if (string.IsNullOrEmpty(currRecipe.Name))
+                {
+                    throw new InvalidOperationException("Enter a recipe name!");
+                }
 
-            txtDescription.Text = String.Empty;
-            txtNameRecipe.Text = String.Empty;
-            cmbFoodCategory.SelectedIndex = 0;
+                if (currRecipe.CurrentNumberOfIngredients() <= 0)
+                {
+                    throw new InvalidOperationException("There are no ingredients in your recipe!");
+                }
 
-            currRecipe = new Recipe(maxNumOfIngredients);
+                if (currRecipe.Description.Length <= 0)
+                {
+                    throw new InvalidOperationException("Please add some instructions how to make your recipe!");
+                }
+
+                recipeManager.Add(currRecipe.Name, currRecipe.Category, currRecipe.Ingredients, currRecipe.Description);
+
+                cmbFoodCategory.SelectedIndex = 0;
+
+                currRecipe = new Recipe(MaxNumOfIngredients);
+
+                UpdateGUI();
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         /// <summary>
@@ -101,7 +137,14 @@ namespace Assignment4
         /// <param name="e"></param>
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
-            currRecipe.Description = txtDescription.Text;
+            try
+            {
+                currRecipe.Description = txtDescription.Text;
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Warning");
+            }
         }
 
         /// <summary>
@@ -111,6 +154,11 @@ namespace Assignment4
         /// <param name="e"></param>
         private void lstRecipe_DoubleClick(object sender, EventArgs e)
         {
+            if (lstRecipe.SelectedIndex < 0)
+            {
+                return; //Maybe you clicked on an empty line in the list?
+            }
+
             FormRecipe formRecipe = new FormRecipe(recipeManager.GetRecipeAt(lstRecipe.SelectedIndex));
             formRecipe.Show();
         }
@@ -140,16 +188,22 @@ namespace Assignment4
         private void btnEditFinish_Click(object sender, EventArgs e)
         {
             recipeManager.ChangeElementAtIndex(lstRecipe.SelectedIndex, currRecipe);
-            currRecipe = new Recipe(maxNumOfIngredients);
-            txtNameRecipe.Text = String.Empty;
-            txtDescription.Text = String.Empty;
+            ResetCreateNewRecipe();
+
+            UpdateGUI();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ResetCreateNewRecipe()
+        {
+            currRecipe = new Recipe(MaxNumOfIngredients);
             cmbFoodCategory.SelectedIndex = 0;
             btnAddRecipe.Enabled = true;
             btnEditStart.Enabled = true;
             btnEditFinish.Enabled = false;
             lstRecipe.Enabled = true;
-
-            UpdateGUI();
         }
 
         /// <summary>
@@ -159,8 +213,14 @@ namespace Assignment4
         /// <param name="e"></param>
         private void txtNameRecipe_TextChanged(object sender, EventArgs e)
         {
-            //TODO: Null check
-            currRecipe.Name = txtNameRecipe.Text;
+            try
+            {
+                currRecipe.Name = txtNameRecipe.Text;
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Warning");
+            }
         }
 
         /// <summary>
@@ -187,6 +247,36 @@ namespace Assignment4
         {
             recipeManager.DeleteElement(lstRecipe.SelectedIndex);
             UpdateGUI();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearSelection();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtDescription_MouseClick(object sender, MouseEventArgs e)
+        {
+            txtDescription.SelectAll();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtDescription_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            txtNameRecipe.SelectAll();
         }
         #endregion
     }

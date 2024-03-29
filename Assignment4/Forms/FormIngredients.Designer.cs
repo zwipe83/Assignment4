@@ -64,6 +64,7 @@
             lstIngredients.Size = new Size(391, 274);
             lstIngredients.TabIndex = 5;
             lstIngredients.SelectedIndexChanged += lstIngredients_SelectedIndexChanged;
+            lstIngredients.DoubleClick += lstIngredients_DoubleClick;
             // 
             // btnDelete
             // 
@@ -135,11 +136,11 @@
             // lblCurrNumber
             // 
             lblCurrNumber.AutoSize = true;
-            lblCurrNumber.Location = new Point(493, 24);
+            lblCurrNumber.Location = new Point(470, 24);
             lblCurrNumber.Name = "lblCurrNumber";
-            lblCurrNumber.Size = new Size(25, 15);
+            lblCurrNumber.Size = new Size(48, 15);
             lblCurrNumber.TabIndex = 4;
-            lblCurrNumber.Text = "000";
+            lblCurrNumber.Text = "000/000";
             // 
             // FormIngredients
             // 

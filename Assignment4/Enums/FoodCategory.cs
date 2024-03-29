@@ -9,7 +9,7 @@ namespace Assignment4.Forms
 {
     #region Enums
     /// <summary>
-    /// 
+    /// Enumeration for different food types
     /// </summary>
     public enum FoodCategory
     {

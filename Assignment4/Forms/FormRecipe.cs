@@ -44,9 +44,15 @@
             string? ingredients = String.Empty;
             foreach (var ingredient in recipe.Ingredients)
             {
-                ingredients += $"{ingredient},";
+                if (ingredient != null)
+                {
+                    if (ingredients.Length > 0)
+                    {
+                        ingredients += ", ";
+                    }
+                    ingredients += $"{ingredient}";
+                }
             }
-            ingredients.Remove(ingredients.Length - 1); //Remove last ','
 
             return ingredients;
         }

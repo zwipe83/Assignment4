@@ -10,7 +10,7 @@
   <Class Name="Assignment4.FormMain">
     <Position X="4" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AUAgAIgACCBiEAAIAADEAAAKIAoEBEAgghkBAAAAiwQ=</HashCode>
+      <HashCode>AUAgAIgACCBiEAAIAADEAAAKIAoEJEAgghkBIAAAiwQ=</HashCode>
       <FileName>Forms\FormMain.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -24,10 +24,9 @@
   <Class Name="Assignment4.Forms.Recipe">
     <Position X="7.75" Y="1" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>CAIAAAAAACAgIAAEIIBAACQAAQAECAAAgAAIAgAgCAA=</HashCode>
+      <HashCode>CAIAAAAAAAAgIAAEIIAAACQAAQAECAAAgAAIAgAgCAA=</HashCode>
       <FileName>Classes\Recipe.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Assignment4.Forms.RecipeManager">
     <Position X="10" Y="1" Width="2.5" />

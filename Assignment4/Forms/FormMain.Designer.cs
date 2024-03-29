@@ -71,7 +71,9 @@
             txtDescription.Name = "txtDescription";
             txtDescription.Size = new Size(353, 300);
             txtDescription.TabIndex = 7;
+            txtDescription.MouseClick += txtDescription_MouseClick;
             txtDescription.TextChanged += txtDescription_TextChanged;
+            txtDescription.MouseDoubleClick += txtDescription_MouseDoubleClick;
             // 
             // btnAddRecipe
             // 
@@ -177,6 +179,7 @@
             btnClear.TabIndex = 5;
             btnClear.Text = "Clear Selection";
             btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
             // 
             // lblInstructions
             // 
