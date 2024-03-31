@@ -88,9 +88,9 @@ namespace Assignment4
             FormIngredients formIngredients = new FormIngredients(currRecipe);
             DialogResult dlgResult = formIngredients.ShowDialog();
 
-            if(dlgResult == DialogResult.OK)
+            if (dlgResult == DialogResult.OK)
             {
-                if(currRecipe.CurrentNumberOfIngredients() <= 0)
+                if (currRecipe.CurrentNumberOfIngredients() <= 0)
                 {
                     MessageBox.Show("No ingredients, please add some.", "Error"); //Will probably never end up here, since you can't even click OK if there are no _ingredients added.
                 }
@@ -171,8 +171,8 @@ namespace Assignment4
                 FormRecipe formRecipe = new FormRecipe(recipeManager.GetRecipeAt(lstRecipe.SelectedIndex));
                 formRecipe.Show();
             }
-            catch (Exception ex) 
-            { 
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message);
             }
         }
@@ -195,9 +195,9 @@ namespace Assignment4
                 txtNameRecipe.Text = currRecipe.Name;
                 cmbFoodCategory.SelectedIndex = (int)currRecipe.Category;
             }
-            catch(Exception ex)
-            { 
-                MessageBox.Show(ex.Message); 
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -215,7 +215,7 @@ namespace Assignment4
 
                 UpdateGUI();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -278,7 +278,7 @@ namespace Assignment4
                 recipeManager.DeleteElement(lstRecipe.SelectedIndex);
                 UpdateGUI();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

@@ -4,7 +4,6 @@
 /// Author: Samuel Jeffman
 /// </summary>
 /// 
-using Assignment4.Wpf;
 using static Assignment4.FormMain;
 
 namespace Assignment4.Forms
