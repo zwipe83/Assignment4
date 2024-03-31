@@ -35,9 +35,9 @@
         #endregion
         #region Methods
         /// <summary>
-        /// Get ingredients for current recipe
+        /// Get _ingredients for current recipe
         /// </summary>
-        /// <param name="recipe"></param>
+        /// <param _name="recipe"></param>
         /// <returns></returns>
         private string GetIngredients(Recipe recipe)
         {
@@ -58,9 +58,9 @@
         }
 
         /// <summary>
-        /// Get description for current recipe
+        /// Get _description for current recipe
         /// </summary>
-        /// <param name="recipe"></param>
+        /// <param _name="recipe"></param>
         /// <returns></returns>
         private string GetInstructions(Recipe recipe)
         {

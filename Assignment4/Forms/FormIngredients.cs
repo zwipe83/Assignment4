@@ -4,6 +4,7 @@
 /// Author: Samuel Jeffman
 /// </summary>
 /// 
+using Assignment4.Wpf;
 using static Assignment4.FormMain;
 
 namespace Assignment4.Forms
@@ -52,21 +53,15 @@ namespace Assignment4.Forms
         #endregion
         #region Methods
         /// <summary>
-        /// Adds ingredients from current recipe to listbox
+        /// Adds _ingredients from current recipe to listbox
         /// </summary>
-        /// <param name="recipe"></param>
+        /// <param _name="recipe"></param>
         private void AddIngredients(Recipe recipe)
         {
-            foreach (string ingredient in recipe.Ingredients)
-            {
-                if (ingredient != null)
-                {
-                    lstIngredients.Items.Add(ingredient);
-                }
-            }
+            lstIngredients.Items.AddRange(recipe.Ingredients.Where(ingredient => !string.IsNullOrWhiteSpace(ingredient)).ToArray());
         }
         /// <summary>
-        /// Count ingredients in the list
+        /// Count _ingredients in the list
         /// </summary>
         /// <returns></returns>
         private int CountIngredients()
@@ -74,7 +69,7 @@ namespace Assignment4.Forms
             int count = 0;
             foreach (var ingredient in lstIngredients.Items)
             {
-                if (!string.IsNullOrEmpty((string)ingredient))
+                if (!string.IsNullOrWhiteSpace((string)ingredient))
                 {
                     count++;
                 }
@@ -93,8 +88,8 @@ namespace Assignment4.Forms
         /// <summary>
         /// Adds an ingredient to the list
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
@@ -136,17 +131,17 @@ namespace Assignment4.Forms
         /// <summary>
         /// Handle exceptions
         /// </summary>
-        /// <param name="ex"></param>
+        /// <param _name="ex"></param>
         private void HandleException(Exception ex)
         {
             MessageBox.Show(ex.Message);
         }
 
         /// <summary>
-        /// Goes through the list of ingredients and adds them to currRecipe
+        /// Goes through the list of _ingredients and adds them to currRecipe
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void btnOK_Click(object sender, EventArgs e)
         {
             try
@@ -155,7 +150,7 @@ namespace Assignment4.Forms
 
                 foreach (var ingredient in lstIngredients.Items)
                 {
-                    if (!string.IsNullOrEmpty((string)ingredient))
+                    if (!string.IsNullOrWhiteSpace((string)ingredient))
                     {
                         recipe.AddIngredient((string)ingredient);
                     }
@@ -166,7 +161,8 @@ namespace Assignment4.Forms
                 }
 
                 CurrRecipe.Ingredients = recipe.Ingredients;
-
+                GC.Collect();
+                DialogResult = DialogResult.OK;
                 Close();
             }
             catch (ArgumentNullException ex)
@@ -178,8 +174,8 @@ namespace Assignment4.Forms
         /// <summary>
         /// Closes the window without saving anything
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
@@ -188,8 +184,8 @@ namespace Assignment4.Forms
         /// <summary>
         /// Deletes an ingredient from the list
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             try
@@ -207,8 +203,8 @@ namespace Assignment4.Forms
         /// <summary>
         /// Initiates editing of an ingredient
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void btnEdit_Click(object sender, EventArgs e)
         {
             EditIngredient();
@@ -235,10 +231,10 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// Handle name change of ingredient
+        /// Handle _name change of ingredient
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void txtNameIngredient_TextChanged(object sender, EventArgs e)
         {
             if (txtNameIngredient.Text.Length > 0)
@@ -254,38 +250,21 @@ namespace Assignment4.Forms
         /// <summary>
         /// Handle index change on ingredient list
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void lstIngredients_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int count = 0;
-            foreach (var item in lstIngredients.Items)
-            {
-                if (item is not null)
-                {
-                    count++;
-                }
-            }
-
-            if (count > 0)
-            {
-                btnOK.Enabled = true;
-                btnEdit.Enabled = true;
-                btnDelete.Enabled = true;
-            }
-            else
-            {
-                btnOK.Enabled = false;
-                btnEdit.Enabled = false;
-                btnDelete.Enabled = false;
-            }
+            bool hasIngredients = CountIngredients() > 0;
+            btnOK.Enabled = hasIngredients;
+            btnEdit.Enabled = hasIngredients;
+            btnDelete.Enabled = hasIngredients;
         }
 
         /// <summary>
         /// Initiate an edit of ingredient
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void lstIngredients_DoubleClick(object sender, EventArgs e)
         {
             EditIngredient();

@@ -10,7 +10,7 @@
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param _name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -57,6 +57,7 @@
             // 
             // lstIngredients
             // 
+            lstIngredients.Font = new Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lstIngredients.FormattingEnabled = true;
             lstIngredients.ItemHeight = 15;
             lstIngredients.Location = new Point(6, 64);

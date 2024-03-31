@@ -31,21 +31,14 @@ namespace Assignment4.Forms
         /// <summary>
         /// Add recipe to array
         /// </summary>
-        public bool Add(Recipe recipe)
+        private bool Add(Recipe recipe)
         {
-            try
-            {
-                int index = FindVacantPosition();
-                if (index < 0)
-                    throw new IndexOutOfRangeException($"No vacant position for recipe found, array is full! Max count is: {MaxNumOfElements}");
-                recipeList[index] = recipe;
+            int index = FindVacantPosition();
+            if (index < 0)
+                throw new IndexOutOfRangeException($"No vacant position for recipe found, array is full! Max count is: {MaxNumOfElements}");
+            recipeList[index] = recipe;
 
-                return true;
-            }
-            catch
-            {
-                throw;
-            }
+            return true;
         }
 
         /// <summary>
@@ -69,20 +62,13 @@ namespace Assignment4.Forms
         /// </summary>
         public void ChangeElementAtIndex(int index, Recipe recipe)
         {
-            try
+            if (CheckIndex(index))
             {
-                if (CheckIndex(index))
-                {
-                    RecipeList[index] = recipe;
-                }
-                else
-                {
-                    throw new IndexOutOfRangeException($"Invalid index({index}) when trying to change an element.");
-                }
+                RecipeList[index] = recipe;
             }
-            catch
+            else
             {
-                throw;
+                throw new IndexOutOfRangeException($"Invalid index({index}) when trying to change an element.");
             }
         }
 
@@ -99,40 +85,23 @@ namespace Assignment4.Forms
         /// </summary>
         public void DeleteElement(int index)
         {
-            try
-            { 
-                if (CheckIndex(index))
-                {
-                    RecipeList[index] = null;
-                    MoveElementsOneStepToLeft(index);
-                }
-                else
-                {
-                    throw new IndexOutOfRangeException($"Invalid index({index}) when trying to delete an element.");
-                }
-            }
-            catch
+            if (CheckIndex(index))
             {
-                throw;
+                RecipeList[index] = null;
+                MoveElementsOneStepToLeft(index);
+            }
+            else
+            {
+                throw new IndexOutOfRangeException($"Invalid index({index}) when trying to delete an element.");
             }
         }
 
         /// <summary>
         /// Find vacant position
         /// </summary>
-        public int FindVacantPosition()
+        private int FindVacantPosition()
         {
-            int index = -1;
-
-            for (int i = 0; i < RecipeList.Length; i++)
-            {
-                if (RecipeList[i] == null)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            return index;
+            return Array.IndexOf(RecipeList, null);
         }
 
         /// <summary>
@@ -155,20 +124,13 @@ namespace Assignment4.Forms
         /// </summary>
         public Recipe? GetRecipeAt(int index)
         {
-            try
-            { 
-                if (CheckIndex(index))
-                {
-                    return recipeList[index];
-                }
-                else
-                {
-                    throw new IndexOutOfRangeException($"Invalid index({index}) when trying to retreive an element.");
-                }
-            }
-            catch
+            if (CheckIndex(index))
             {
-                throw;
+                return recipeList[index];
+            }
+            else
+            {
+                throw new IndexOutOfRangeException($"Invalid index({index}) when trying to retreive an element.");
             }
         }
 
@@ -186,9 +148,9 @@ namespace Assignment4.Forms
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="recipe"></param>
+        /// <param _name="recipe"></param>
         /// <returns></returns>
-        public int GetNumOfIngredients(Recipe recipe)
+        private int GetNumOfIngredients(Recipe recipe)
         {
             int ingredients = 0;
 
@@ -230,7 +192,7 @@ namespace Assignment4.Forms
             {
                 if (recipe != null)
                 {
-                    listbox.Items.Add($"{recipe.Name}\t\t\t{recipe.Category}\t\t\t{GetNumOfIngredients(recipe)}");
+                    listbox.Items.Add(string.Format("{0,-44} {1,-40} {2,5}", recipe.Name, recipe.Category, GetNumOfIngredients(recipe)));
                 }
             }
         }

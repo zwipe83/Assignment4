@@ -13,9 +13,9 @@ namespace Assignment4
     public partial class FormMain : Form
     {
         #region Fields
-        private const int maxNumOfElements = 100;
-        private const int maxNumOfIngredients = 20;
-        private RecipeManager recipeManager = new RecipeManager(maxNumOfElements);
+        private const int _maxNumOfElements = 100;
+        private const int _maxNumOfIngredients = 20;
+        private RecipeManager recipeManager = new RecipeManager(MaxNumOfElements);
         private Recipe currRecipe;
         #endregion
         #region Properties
@@ -23,14 +23,14 @@ namespace Assignment4
         {
             get
             {
-                return maxNumOfIngredients;
+                return _maxNumOfIngredients;
             }
         }
         public static int MaxNumOfElements
         {
             get
             {
-                return maxNumOfElements;
+                return _maxNumOfElements;
             }
         }
         #endregion
@@ -48,7 +48,6 @@ namespace Assignment4
         /// </summary>
         public void InitializeGUI()
         {
-            cmbFoodCategory.Items.Clear();
             cmbFoodCategory.DataSource = Enum.GetValues(typeof(FoodCategory));
             txtNameRecipe.Text = currRecipe.Name;
             txtDescription.Text = currRecipe.Description;
@@ -80,27 +79,36 @@ namespace Assignment4
         }
 
         /// <summary>
-        /// Opens a new form where you can add ingredients to recipe
+        /// Opens a new form where you can add _ingredients to recipe
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void btnAddIngredient_Click(object sender, EventArgs e)
         {
-            FormIngredients formIngredient = new FormIngredients(currRecipe);
-            formIngredient.Show();
+            FormIngredients formIngredients = new FormIngredients(currRecipe);
+            DialogResult dlgResult = formIngredients.ShowDialog();
+
+            if(dlgResult == DialogResult.OK)
+            {
+                if(currRecipe.CurrentNumberOfIngredients() <= 0)
+                {
+                    MessageBox.Show("No ingredients, please add some.", "Error"); //Will probably never end up here, since you can't even click OK if there are no _ingredients added.
+                }
+            }
+            //formIngredient.Show();
         }
 
         /// <summary>
         /// Adds current recipe to recipeManager
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void btnAddRecipe_Click(object sender, EventArgs e)
         {
             //FIXED: Add checks before blindly adding stuff
             try
             {
-                if (string.IsNullOrEmpty(currRecipe.Name))
+                if (string.IsNullOrWhiteSpace(currRecipe.Name))
                 {
                     throw new InvalidOperationException("Enter a recipe name!");
                 }
@@ -132,8 +140,8 @@ namespace Assignment4
         /// <summary>
         /// Handle decription text changed
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
             try
@@ -147,10 +155,10 @@ namespace Assignment4
         }
 
         /// <summary>
-        /// Gets ingredients and description for selected recipe
+        /// Gets _ingredients and _description for selected recipe
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void lstRecipe_DoubleClick(object sender, EventArgs e)
         {
             try
@@ -172,8 +180,8 @@ namespace Assignment4
         /// <summary>
         /// Initiates an edit of a recipe
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void btnEditStart_Click(object sender, EventArgs e)
         {
             try
@@ -196,8 +204,8 @@ namespace Assignment4
         /// <summary>
         /// Finish a recipe edit
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void btnEditFinish_Click(object sender, EventArgs e)
         {
             try
@@ -227,10 +235,10 @@ namespace Assignment4
         }
 
         /// <summary>
-        /// Handle recipe name changed
+        /// Handle recipe _name changed
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void txtNameRecipe_TextChanged(object sender, EventArgs e)
         {
             try
@@ -244,10 +252,10 @@ namespace Assignment4
         }
 
         /// <summary>
-        /// Handle food category change
+        /// Handle food _category change
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void cmbFoodCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbFoodCategory.SelectedIndex >= 0)
@@ -261,8 +269,8 @@ namespace Assignment4
         /// <summary>
         /// Delete a recipe from recipe manager
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             try
@@ -279,8 +287,8 @@ namespace Assignment4
         /// <summary>
         /// Clear current edit and selected recipe
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearSelection();
@@ -289,8 +297,8 @@ namespace Assignment4
         /// <summary>
         /// Mark all text
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void txtDescription_MouseClick(object sender, MouseEventArgs e)
         {
             txtDescription.SelectAll();
@@ -299,8 +307,8 @@ namespace Assignment4
         /// <summary>
         /// Mark all text
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param _name="sender"></param>
+        /// <param _name="e"></param>
         private void txtDescription_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             txtNameRecipe.SelectAll();

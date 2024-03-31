@@ -9,23 +9,15 @@ namespace Assignment4.Forms
     public class Recipe
     {
         #region Fields
-        private FoodCategory category;
-        private string? description;
-        private string[]? ingredients;
-        private string? name;
+        private FoodCategory _category;
+        private string? _description;
+        private string[]? _ingredients;
+        private string? _name;
         #endregion
         #region Constructors
         public Recipe(int maxNumOfIngredients)
         {
             DefaultValues(maxNumOfIngredients);
-        }
-
-        public Recipe(Recipe recipeToCopyFrom) //TODO: Remove?
-        {
-            category = recipeToCopyFrom.category;
-            description = recipeToCopyFrom.description;
-            ingredients = recipeToCopyFrom.ingredients;
-            name = recipeToCopyFrom.name;
         }
         public Recipe(string name, FoodCategory category, string[] ingredients, string description)
         {
@@ -45,50 +37,45 @@ namespace Assignment4.Forms
         #region Properties
         public FoodCategory Category
         {
-            get => category;
+            get => _category;
             set
             {
-                category = value;
+                _category = value;
             }
         }
 
-        public string Description
+        public string? Description
         {
-            get => description;
+            get => _description;
             set
             {
-                if (string.IsNullOrEmpty(value))
-                {
-                    description = string.Empty;
-                    throw new ArgumentException("Description can not be null or empty.");
-                }
-                description = value;
+                _description = value ?? string.Empty; //You won't be able to save the recipe with an empty _description, as "Add recipe" will throw an exception, so we might as well allow an empty string.
             }
         }
 
         public string[]? Ingredients
         {
-            get => ingredients;
+            get => _ingredients;
             set
             {
                 if (value != null && value.Length > 0)
                 {
-                    ingredients = value;
+                    _ingredients = value;
                 }
             }
         }
 
         public string? Name
         {
-            get => name;
+            get => _name;
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    name = string.Empty;
+                    _name = string.Empty;
                     throw new ArgumentException("Name can not be null or empty.");
                 }
-                name = value;
+                _name = value;
             }
         }
         #endregion
@@ -97,7 +84,7 @@ namespace Assignment4.Forms
         /// <summary>
         /// Add an ingredient to current recipe
         /// </summary>
-        /// <param name="input"></param>
+        /// <param _name="input"></param>
         /// <returns></returns>
         public bool AddIngredient(string input) //FIXED: Is lastIndex needed?
         {
@@ -119,18 +106,18 @@ namespace Assignment4.Forms
         /// <summary>
         /// Check for correct input
         /// </summary>
-        /// <param name="input"></param>
+        /// <param _name="input"></param>
         /// <returns></returns>
         private bool CheckInput(string input)
         {
-            return !string.IsNullOrEmpty(input);
+            return !string.IsNullOrWhiteSpace(input);
         }
 
         /// <summary>
         /// Change an ingredient in a specific recipe
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="value"></param>
+        /// <param _name="index"></param>
+        /// <param _name="value"></param>
         /// <returns></returns>
         public bool ChangeIngredientAt(int index, string value)
         {
@@ -150,7 +137,7 @@ namespace Assignment4.Forms
         /// <summary>
         /// Check index is in range
         /// </summary>
-        /// <param name="index"></param>
+        /// <param _name="index"></param>
         /// <returns></returns>
         private bool CheckIndex(int index)
         {
@@ -160,7 +147,7 @@ namespace Assignment4.Forms
         /// <summary>
         /// Check Ingredients is not null
         /// </summary>
-        /// <param name="ingredients"></param>
+        /// <param _name="ingredients"></param>
         /// <returns></returns>
         private bool CheckIngredients(string[] ingredients)
         {
@@ -168,24 +155,12 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// Get current number of ingredients
+        /// Get current number of _ingredients
         /// </summary>
         /// <returns></returns>
         public int CurrentNumberOfIngredients()
         {
-            int count = 0;
-
-            if (CheckIngredients(Ingredients))
-            {
-                foreach (var ingredient in Ingredients) //FIXED: Maybe add null check
-                {
-                    if (ingredient != null)
-                    {
-                        count++;
-                    }
-                }
-            }
-            return count;
+            return Ingredients.Count(ingredient => ingredient != null);
         }
 
         /// <summary>
@@ -202,7 +177,7 @@ namespace Assignment4.Forms
         /// <summary>
         /// Delete an ingredient from a recipe
         /// </summary>
-        /// <param name="index"></param>
+        /// <param _name="index"></param>
         public void DeleteIngredientAt(int index)
         {
             if (CheckIndex(index) && CheckIngredients(Ingredients)) //FIXED: Maybe add null check
