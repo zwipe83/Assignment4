@@ -21,11 +21,6 @@ namespace Assignment4.Forms
         {
             recipeList = new Recipe[maxNumOfElements];
         }
-        public Recipe[] RecipeList
-        {
-            get => recipeList;
-            set => recipeList = value;
-        }
         #endregion
         #region Methods
         /// <summary>
@@ -46,15 +41,8 @@ namespace Assignment4.Forms
         /// </summary>
         public bool Add(string name, FoodCategory category, string[] ingredients, string description)
         {
-            try
-            {
-                Add(new Recipe(name, category, ingredients, description));
-                return true;
-            }
-            catch
-            {
-                throw;
-            }
+            Add(new Recipe(name, category, ingredients, description));
+            return true;
         }
 
         /// <summary>
@@ -64,7 +52,7 @@ namespace Assignment4.Forms
         {
             if (CheckIndex(index))
             {
-                RecipeList[index] = recipe;
+                this.recipeList[index] = recipe;
             }
             else
             {
@@ -77,7 +65,7 @@ namespace Assignment4.Forms
         /// </summary>
         private bool CheckIndex(int index)
         {
-            return (index >= 0 && index < RecipeList.Length);
+            return (index >= 0 && index < this.recipeList.Length);
         }
 
         /// <summary>
@@ -87,7 +75,7 @@ namespace Assignment4.Forms
         {
             if (CheckIndex(index))
             {
-                RecipeList[index] = null;
+                this.recipeList[index] = null;
                 MoveElementsOneStepToLeft(index);
             }
             else
@@ -101,7 +89,7 @@ namespace Assignment4.Forms
         /// </summary>
         private int FindVacantPosition()
         {
-            return Array.IndexOf(RecipeList, null);
+            return Array.IndexOf(this.recipeList, null);
         }
 
         /// <summary>
@@ -111,7 +99,7 @@ namespace Assignment4.Forms
         {
             int count = 0;
 
-            for (int i = 0; i < RecipeList.Length; i++)
+            for (int i = 0; i < this.recipeList.Length; i++)
             {
                 if (recipeList[i] != null)
                     count++;
@@ -139,9 +127,9 @@ namespace Assignment4.Forms
         /// </summary>
         private void MoveElementsOneStepToLeft(int index)
         {
-            for (int i = index; i < RecipeList.Length - 1; i++)
+            for (int i = index; i < this.recipeList.Length - 1; i++)
             {
-                RecipeList[i] = RecipeList[i + 1];
+                this.recipeList[i] = this.recipeList[i + 1];
             }
         }
 
@@ -168,7 +156,7 @@ namespace Assignment4.Forms
         /// <summary>
         /// Recipe list to string
         /// </summary>
-        public string RecipeListToString()
+        public string RecipeListToString() //Using RecipeListToListBox instead
         {
             string infoString = String.Empty;
 

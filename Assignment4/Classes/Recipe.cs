@@ -21,17 +21,10 @@ namespace Assignment4.Forms
         }
         public Recipe(string name, FoodCategory category, string[] ingredients, string description)
         {
-            try
-            {
-                Name = name;
-                Category = category;
-                Ingredients = ingredients;
-                Description = description;
-            }
-            catch
-            {
-                throw;
-            }
+            Name = name;
+            Category = category;
+            Ingredients = ingredients;
+            Description = description;
         }
         #endregion
         #region Properties
@@ -119,7 +112,7 @@ namespace Assignment4.Forms
         /// <param _name="index"></param>
         /// <param _name="value"></param>
         /// <returns></returns>
-        public bool ChangeIngredientAt(int index, string value)
+        public bool ChangeIngredientAt(int index, string value) //Not used, as all Ingredients will be overwritten if you click OK in FormIngredients
         {
             bool ok = true;
             if (CheckIndex(index) && CheckInput(value))
@@ -178,9 +171,9 @@ namespace Assignment4.Forms
         /// Delete an ingredient from a recipe
         /// </summary>
         /// <param _name="index"></param>
-        public void DeleteIngredientAt(int index)
+        public void DeleteIngredientAt(int index) //Not used, as all Ingredients will be overwritten if you click OK in FormIngredients
         {
-            if (CheckIndex(index) && CheckIngredients(Ingredients)) //FIXED: Maybe add null check
+            if (CheckIndex(index) && CheckIngredients(Ingredients))
             {
                 Ingredients[index] = null;
             }
@@ -196,7 +189,7 @@ namespace Assignment4.Forms
 
             if (CheckIngredients(Ingredients))
             {
-                for (int i = 0; i < Ingredients.Length; i++) //FIXED: Maybe add null check
+                for (int i = 0; i < Ingredients.Length; i++)
                 {
                     if (Ingredients[i] == null)
                     {

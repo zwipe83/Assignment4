@@ -11,7 +11,7 @@
         //FIXED: Add check for no _ingredients
         //FIXED: Add check for max number of _ingredients
         //FIXED: Add check for max number of recipes
-        //TODO: TEST!!!!! Specific areas would be add, edit and delete _ingredients and recipes
+        //FIXED: TEST!!!!! Specific areas would be add, edit and delete _ingredients and recipes
         //FIXED: No time for Wpf, remove!
         //TODO: Complete comments
         //FIXED: Maybe pass currRecipe by reference to FormIngredients

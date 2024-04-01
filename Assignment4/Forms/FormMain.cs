@@ -226,12 +226,12 @@ namespace Assignment4
         /// </summary>
         private void ResetCreateNewRecipe()
         {
+            currRecipe = new Recipe(MaxNumOfIngredients);
             cmbFoodCategory.SelectedIndex = 0;
             btnAddRecipe.Enabled = true;
             btnEditStart.Enabled = true;
             btnEditFinish.Enabled = false;
             lstRecipe.Enabled = true;
-            currRecipe = new Recipe(MaxNumOfIngredients);
         }
 
         /// <summary>

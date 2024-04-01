@@ -69,6 +69,7 @@
             txtDescription.Location = new Point(6, 91);
             txtDescription.Multiline = true;
             txtDescription.Name = "txtDescription";
+            txtDescription.ScrollBars = ScrollBars.Vertical;
             txtDescription.Size = new Size(353, 300);
             txtDescription.TabIndex = 7;
             txtDescription.MouseClick += txtDescription_MouseClick;

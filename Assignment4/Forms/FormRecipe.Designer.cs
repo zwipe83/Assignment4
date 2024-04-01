@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             lblIngredients = new Label();
+            txtInstructions = new TextBox();
             lblInstructions = new Label();
             SuspendLayout();
             // 
@@ -41,10 +42,20 @@
             lblIngredients.TabIndex = 0;
             lblIngredients.Text = "INGREDIENTS";
             // 
+            // txtInstructions
+            // 
+            txtInstructions.Location = new Point(12, 68);
+            txtInstructions.Multiline = true;
+            txtInstructions.Name = "txtInstructions";
+            txtInstructions.ReadOnly = true;
+            txtInstructions.ScrollBars = ScrollBars.Vertical;
+            txtInstructions.Size = new Size(776, 370);
+            txtInstructions.TabIndex = 1;
+            // 
             // lblInstructions
             // 
             lblInstructions.AutoSize = true;
-            lblInstructions.Location = new Point(12, 71);
+            lblInstructions.Location = new Point(12, 50);
             lblInstructions.Name = "lblInstructions";
             lblInstructions.Size = new Size(87, 15);
             lblInstructions.TabIndex = 0;
@@ -55,6 +66,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(txtInstructions);
             Controls.Add(lblInstructions);
             Controls.Add(lblIngredients);
             Name = "FormRecipe";
@@ -66,6 +78,7 @@
         #endregion
 
         private Label lblIngredients;
+        private TextBox txtInstructions;
         private Label lblInstructions;
     }
 }

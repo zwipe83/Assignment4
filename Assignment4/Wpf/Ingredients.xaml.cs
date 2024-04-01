@@ -7,6 +7,8 @@
 
 using System.Windows;
 
+// Wpf not implemented due to time constraints
+
 namespace Assignment4.Wpf
 {
     /// <summary>

@@ -30,7 +30,8 @@
         {
             this.Text = Recipe.Name;
             lblIngredients.Text = $"INGREDIENTS\n{GetIngredients(Recipe)}";
-            lblInstructions.Text = $"\n\nINSTRUCTIONS\n{GetInstructions(Recipe)}";
+            lblInstructions.Text = $"INSTRUCTIONS";
+            txtInstructions.Text = $"{GetInstructions(Recipe)}";
         }
         #endregion
         #region Methods
