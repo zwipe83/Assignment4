@@ -6,6 +6,9 @@
         private Recipe _recipe;
         #endregion
         #region Properties
+        /// <summary>
+        /// Gets and sets current recipe
+        /// </summary>
         public Recipe Recipe
         {
             get => _recipe;
@@ -13,6 +16,10 @@
         }
         #endregion
         #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormRecipe"/> class to the specified <see cref="Recipe"> class intstance
+        /// </summary>
+        /// <param name="recipe"></param>
         public FormRecipe(Recipe recipe)
         {
             InitializeComponent();

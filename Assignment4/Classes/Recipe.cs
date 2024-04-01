@@ -15,10 +15,21 @@ namespace Assignment4.Forms
         private string? _name;
         #endregion
         #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Recipe"/> class to the specified max number of ingredients
+        /// </summary>
+        /// <param name="maxNumOfIngredients"></param>
         public Recipe(int maxNumOfIngredients)
         {
             DefaultValues(maxNumOfIngredients);
         }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Recipe"/> class to the specified name, food category, ingredients and description
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="category"></param>
+        /// <param name="ingredients"></param>
+        /// <param name="description"></param>
         public Recipe(string name, FoodCategory category, string[] ingredients, string description)
         {
             Name = name;
@@ -28,6 +39,9 @@ namespace Assignment4.Forms
         }
         #endregion
         #region Properties
+        /// <summary>
+        /// What type of recipe it is
+        /// </summary>
         public FoodCategory Category
         {
             get => _category;
@@ -36,7 +50,9 @@ namespace Assignment4.Forms
                 _category = value;
             }
         }
-
+        /// <summary>
+        /// Description how to cook the recipe
+        /// </summary>
         public string? Description
         {
             get => _description;
@@ -45,7 +61,9 @@ namespace Assignment4.Forms
                 _description = value ?? string.Empty; //You won't be able to save the recipe with an empty _description, as "Add recipe" will throw an exception, so we might as well allow an empty string.
             }
         }
-
+        /// <summary>
+        /// Ingredients for the current recipe
+        /// </summary>
         public string[]? Ingredients
         {
             get => _ingredients;
@@ -57,7 +75,9 @@ namespace Assignment4.Forms
                 }
             }
         }
-
+        /// <summary>
+        /// Name of the current recipe
+        /// </summary>
         public string? Name
         {
             get => _name;

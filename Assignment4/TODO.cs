@@ -13,7 +13,7 @@
         //FIXED: Add check for max number of recipes
         //FIXED: TEST!!!!! Specific areas would be add, edit and delete _ingredients and recipes
         //FIXED: No time for Wpf, remove!
-        //TODO: Complete comments
+        //FIXED: Complete comments
         //FIXED: Maybe pass currRecipe by reference to FormIngredients
         //FIXED: Check that all Array types are packed when delete, also check that find vacant position does what it is supposed to do
         //FIXED: Do nullorwhitespace instead of nullorempty?

@@ -19,6 +19,9 @@ namespace Assignment4
         private Recipe currRecipe;
         #endregion
         #region Properties
+        /// <summary>
+        /// Gets max number of ingredients
+        /// </summary>
         public static int MaxNumOfIngredients
         {
             get
@@ -26,6 +29,9 @@ namespace Assignment4
                 return _maxNumOfIngredients;
             }
         }
+        /// <summary>
+        /// Gets max number of elements
+        /// </summary>
         public static int MaxNumOfElements
         {
             get
@@ -35,6 +41,9 @@ namespace Assignment4
         }
         #endregion
         #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormMain"/> class
+        /// </summary>
         public FormMain()
         {
             InitializeComponent();
@@ -46,7 +55,7 @@ namespace Assignment4
         /// <summary>
         /// Init GUI
         /// </summary>
-        public void InitializeGUI()
+        private void InitializeGUI()
         {
             cmbFoodCategory.DataSource = Enum.GetValues(typeof(FoodCategory));
             txtNameRecipe.Text = currRecipe.Name;
@@ -188,6 +197,7 @@ namespace Assignment4
             {
                 lstRecipe.Enabled = false;
                 btnEditStart.Enabled = false;
+                btnDelete.Enabled = false;
                 btnEditFinish.Enabled = true;
                 btnAddRecipe.Enabled = false;
                 currRecipe = recipeManager.GetRecipeAt(lstRecipe.SelectedIndex);
@@ -228,6 +238,7 @@ namespace Assignment4
         {
             currRecipe = new Recipe(MaxNumOfIngredients);
             cmbFoodCategory.SelectedIndex = 0;
+            btnDelete.Enabled = true;
             btnAddRecipe.Enabled = true;
             btnEditStart.Enabled = true;
             btnEditFinish.Enabled = false;

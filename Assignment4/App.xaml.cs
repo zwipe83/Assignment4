@@ -6,12 +6,12 @@
     public partial class App : System.Windows.Application
     {
         private readonly FormMain formMain = new FormMain();
-        private readonly MainWindow mainWindow = new MainWindow();
+        //private readonly MainWindow mainWindow = new MainWindow(); //Wpf not implemented due to time constraints
 
         public App()
         {
             formMain.Show();
-            //mainWindow.Show(); //Maybe implement wpf
+            //mainWindow.Show();
         }
     }
 }

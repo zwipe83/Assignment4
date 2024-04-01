@@ -15,8 +15,9 @@ namespace Assignment4.Forms
         #endregion
         #region Constructors
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the <see cref="RecipeManager"/> class to the specified max number of elements
         /// </summary>
+        /// <param name="maxNumOfElements"></param>
         public RecipeManager(int maxNumOfElements)
         {
             recipeList = new Recipe[maxNumOfElements];
@@ -56,7 +57,7 @@ namespace Assignment4.Forms
             }
             else
             {
-                throw new IndexOutOfRangeException($"Invalid index({index}) when trying to change an element.");
+                throw new IndexOutOfRangeException($"Invalid index({index}) when trying to change an element. Maybe you haven't selected a recipe?");
             }
         }
 
@@ -80,7 +81,7 @@ namespace Assignment4.Forms
             }
             else
             {
-                throw new IndexOutOfRangeException($"Invalid index({index}) when trying to delete an element.");
+                throw new IndexOutOfRangeException($"Invalid index({index}) when trying to delete an element. Maybe you haven't selected a recipe?");
             }
         }
 
@@ -118,7 +119,7 @@ namespace Assignment4.Forms
             }
             else
             {
-                throw new IndexOutOfRangeException($"Invalid index({index}) when trying to retreive an element.");
+                throw new IndexOutOfRangeException($"Invalid index({index}) when trying to retreive an element. Maybe you haven't selected a recipe?");
             }
         }
 
@@ -134,7 +135,7 @@ namespace Assignment4.Forms
         }
 
         /// <summary>
-        /// 
+        /// Get number of ingredients in the provided recipe
         /// </summary>
         /// <param _name="recipe"></param>
         /// <returns></returns>

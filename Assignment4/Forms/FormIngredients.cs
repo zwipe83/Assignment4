@@ -15,11 +15,17 @@ namespace Assignment4.Forms
         private int _ingredientIndex;
         #endregion
         #region Properties
+        /// <summary>
+        /// Gets and sets current recipe
+        /// </summary>
         private Recipe CurrRecipe
         {
             get { return _currRecipe; }
             set { _currRecipe = value; }
         }
+        /// <summary>
+        /// Gets and sets current inredient index
+        /// </summary>
         public int IngredientIndex
         {
             get { return _ingredientIndex; }
@@ -27,6 +33,10 @@ namespace Assignment4.Forms
         }
         #endregion
         #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormIngredients"/> class to the specified <see cref="Recipe"> class intstance
+        /// </summary>
+        /// <param name="recipe"></param>
         public FormIngredients(Recipe recipe)
         {
             InitializeComponent();
@@ -40,7 +50,7 @@ namespace Assignment4.Forms
         /// <summary>
         /// Init GUI
         /// </summary>
-        public void InitializeGUI()
+        private void InitializeGUI()
         {
             btnAdd.Enabled = false; //FIXED: Release should be false
             btnEdit.Enabled = false;
@@ -105,7 +115,7 @@ namespace Assignment4.Forms
                 }
                 else // Edit existing
                 {
-                    if (IngredientIndex < 0 || IngredientIndex >= MaxNumOfIngredients)
+                    if (CheckIndex())
                     {
                         throw new IndexOutOfRangeException("Index is out of range");
                     }
@@ -125,6 +135,11 @@ namespace Assignment4.Forms
             {
                 HandleException(ex);
             }
+        }
+
+        private bool CheckIndex()
+        {
+            return IngredientIndex < 0 || IngredientIndex >= MaxNumOfIngredients;
         }
 
         /// <summary>
@@ -220,7 +235,7 @@ namespace Assignment4.Forms
                 btnEdit.Enabled = false;
                 btnDelete.Enabled = false;
                 btnAdd.Text = "Save";
-                IngredientIndex = (lstIngredients.SelectedIndex >= 0 && lstIngredients.SelectedIndex < MaxNumOfIngredients) ? lstIngredients.SelectedIndex : throw new IndexOutOfRangeException("Selected index is out of range."); //FIXED: Maybe null check?
+                IngredientIndex = (lstIngredients.SelectedIndex >= 0 && lstIngredients.SelectedIndex < MaxNumOfIngredients) ? lstIngredients.SelectedIndex : throw new IndexOutOfRangeException("Selected index is out of range.");
                 txtNameIngredient.Text = lstIngredients?.SelectedItem?.ToString();
             }
             catch (IndexOutOfRangeException ex)
